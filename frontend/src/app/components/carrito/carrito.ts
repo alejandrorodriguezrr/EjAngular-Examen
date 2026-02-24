@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CarritoService, ItemCarrito } from '../../services/carrito-services';
 import { ComprasServices } from '../../services/compras-services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carrito',
@@ -17,7 +18,8 @@ export class Carrito implements OnInit {
 
   constructor(
     private carritoService: CarritoService,
-    private comprasService: ComprasServices
+    private comprasService: ComprasServices,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +73,20 @@ export class Carrito implements OnInit {
       total: this.total
     };
 
+    this.comprasService.mostrarComprasCliente(String(clienteId)).subscribe({
+        next: (compras: any) => {
+          if(compras.length >=2){
+            alert("Usted no puede realizar mas compras")
+
+            localStorage.removeItem('user')
+            localStorage.removeItem('autenticado')
+
+            this.router.navigate(['/login'])
+
+            return
+          }
+        }
+    })
 
     this.comprasService.crearCompra(compra).subscribe({
       next: () => {
