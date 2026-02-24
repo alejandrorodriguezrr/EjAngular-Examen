@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CarritoService, ItemCarrito } from '../../services/carrito-services';
 import { ComprasServices } from '../../services/compras-services';
+import { ComprasModel } from '../../models/compras-model';
 
 @Component({
   selector: 'app-carrito',
@@ -51,6 +52,22 @@ export class Carrito implements OnInit {
       alert('Error: el usuario logueado no tiene ID. Revisa el login.');
       return;
     }
+
+    this.comprasService.mostrarComprasCliente(clienteId).subscribe({
+      next: (comprasPrevias: any) => {
+
+        const librosyaComprados: String[] = []
+
+        comprasPrevias.forEach((compra: any) => {
+          compra.libros.forEach((libro: any) => {
+            librosyaComprados.push(libro.libroId)
+          })
+        })
+        const carritofiltrado = this.carrito.filter(
+          item=> !librosyaComprados.includes(item.libro._id)
+        )
+      }
+    })
 
     const cantidades: { [key: string]: number } = {};
     this.carrito.forEach(item => {
