@@ -1,0 +1,9 @@
+<h3>Padre</h3>
+
+<p>Nombre de usuario logado</p> {{nombreUsuario}}
+<p>Email recibido del hijo</p> {{emailRecibido}}
+
+<app-hijo
+    [idUsuario]="idUsuario"
+    (emailUsuario)="recibirEmail($event)"
+></app-hijo>
