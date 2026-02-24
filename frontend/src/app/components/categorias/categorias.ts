@@ -15,7 +15,7 @@ export class Categorias implements OnInit {
 
   @Output() categoriaSeleccionada = new EventEmitter<string>();
 
-  private urlCategorias = 'http://localhost:5000/api/libros/generos';
+  private urlCategorias = 'http://localhost:5050/api/libros/generos';
 
   constructor(private http: HttpClient) {}
 

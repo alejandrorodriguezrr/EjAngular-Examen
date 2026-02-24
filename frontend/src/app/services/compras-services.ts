@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class ComprasServices {
   compraSeleccionada: ComprasModel;
   compras: ComprasModel[];
-  URL = 'http://localhost:5000/api/compras/';
+  URL = 'http://localhost:5050/api/compras/';
 
   constructor(private http: HttpClient) {
     this.compraSeleccionada = new ComprasModel();

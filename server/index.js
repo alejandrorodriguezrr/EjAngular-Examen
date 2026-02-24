@@ -3,7 +3,7 @@ const express = require ('express');
 const app = express();
 const cors = require('cors');
 
-app.set ('port', process.env.PORT || 5000);
+app.set ('port', process.env.PORT || 5050);
 
 app.listen(app.get('port'), () => {
     console.log('Server ejecutandose en el puerto', app.get('port'))

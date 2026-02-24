@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 export class ClientesServices {
   clienteSeleccionado: ClientesModel;
   clientes: ClientesModel[];
-  URL = 'http://localhost:5000/api/cliente/'; 
+  URL = 'http://localhost:5050/api/cliente/'; 
 
   constructor(private http: HttpClient) {
     this.clienteSeleccionado = new ClientesModel();

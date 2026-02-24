@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class LibrosServices {
   libroSeleccionado: LibroModel;
   libros: LibroModel[];
-  URL='http://localhost:5000/api/libros/';
+  URL='http://localhost:5050/api/libros/';
 
   constructor(private http : HttpClient){
     this.libroSeleccionado = new LibroModel();
