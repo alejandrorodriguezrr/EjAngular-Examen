@@ -1,0 +1,36 @@
+<header class="app-header">
+  <div class="logo">
+    <img src="LogoLibreriaSINFONDO.png" alt="Logo">
+  </div>
+
+  <!--<div class="search-bar">
+        <input type="text" placeholder="Buscar libros...">
+      </div>-->
+
+  <div class="header-buttons">
+
+    <button *ngIf="!estaLogueado()" class="login-btn" (click)="irLogin()">
+      Login
+    </button>
+
+    <div *ngIf="estaLogueado()" class="bienvenida">
+        <span class="bienvenida-texto">
+            <span class="bienvenida-label">Bienvenido,</span>
+            <span class="bienvenida-nombre">{{ obtenerNombre() }}</span>
+        </span>
+
+        <button class="btn-salir" (click)="cerrarSesion()">Salir</button>
+    </div>
+
+
+    <div class="carrito">
+      <img src="carrito.png" alt="carrito" (click)="irHistorial()">
+    </div>
+  </div>
+</header>
+
+
+
+
+
+  

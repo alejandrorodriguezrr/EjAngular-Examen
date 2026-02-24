@@ -1,0 +1,12 @@
+<div class="card">
+    <img [src]="'http://localhost:5000/uploads/' + libro.imagen" [alt]="libro.titulo">
+
+    <h3>{{ libro.titulo }}</h3>
+    <p>{{ libro.autor }}</p>
+
+    <p class="precio">{{ libro.precio }} €</p>
+
+    <button (click)="agregarAlCarrito()" [disabled]="libro.stock <= 0">
+        {{ libro.stock > 0 ? 'Añadir al carrito' : 'Sin stock' }}
+    </button>
+</div>

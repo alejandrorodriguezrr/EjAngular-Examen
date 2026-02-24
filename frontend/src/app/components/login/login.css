@@ -1,0 +1,105 @@
+.login-container {
+  width: 450px;
+  margin: 60px auto;
+  padding: 40px 45px;
+  background: #F3E8D2; 
+  border-radius: 14px;
+  border: 2px solid #D4A64A; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.login-container h2 {
+  text-align: center;
+  color: #3B2314; 
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 35px;
+}
+
+.login-container label {
+  font-weight: 600;
+  color: #3B2314;
+  display: block;
+  margin-bottom: 6px;
+  margin-top: 15px;
+}
+
+.login-container input,
+.login-container select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1.5px solid #D4A64A;
+  font-size: 15px;
+  background: #FFF7E8; 
+  color: #3B2314;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.login-container input:focus,
+.login-container select:focus {
+  border-color: #B88732;
+  box-shadow: 0 0 6px rgba(212, 166, 74, 0.4);
+}
+
+.login-container button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 25px;
+  background: #D4A64A; 
+  color: #3B2314;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.login-container button:hover {
+  background: #E8C77A; 
+}
+
+.login-container select option {
+  background: #FFF7E8;
+  color: #3B2314;
+}
+
+select {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  min-height: 45px !important;
+  background: #FFF7E8 !important;
+  position: relative !important;
+  z-index: 9999 !important;
+  border: 3px solid red !important;
+}
+
+.registro-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #3B2314;
+}
+
+.registro-link a {
+  margin-left: 5px;
+  color: #D4A64A;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.registro-link a:hover {
+  text-decoration: underline;
+}
+
+.auth-error {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #8a2d2d;
+}

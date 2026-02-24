@@ -1,0 +1,188 @@
+.app-header {
+    width: 100%;
+    height: 90px;
+    background-color: #3B2314; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 70px;
+    object-fit: contain;
+}
+
+.search-bar {
+    flex: 0 0 45%;
+    display: flex;
+    justify-content: center;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background-color: #F3E8D2;
+    color: #3B2314;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+}
+
+.search-bar input::placeholder {
+    color: #BFB7A3;
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-left: auto;
+}
+
+.login-btn {
+    background: linear-gradient(180deg, #E7C36A, #CFA245);
+    border: none;
+    padding: 12px 22px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #2B1A07;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    box-shadow: 0 10px 18px rgba(0,0,0,0.18);
+    transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+}
+
+.login-btn:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 22px rgba(0,0,0,0.22);
+}
+
+.login-btn:active {
+    transform: translateY(0px);
+    filter: brightness(0.98);
+}
+
+
+.bienvenida {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(212, 166, 74, 0.35);
+    background: rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 18px rgba(0,0,0,0.12);
+}
+
+.bienvenida span {
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.bienvenida-texto {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.bienvenida-label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.bienvenida-nombre {
+    font-size: 14px;
+    font-weight: 750;
+    color: #F3E3B2;
+    letter-spacing: 0.35px;
+    text-transform: capitalize;
+}
+
+.btn-salir {
+    background: transparent;
+    border: 1px solid rgba(212, 166, 74, 0.55);
+    color: #F3E3B2;
+    padding: 9px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    transition: transform 120ms ease, filter 120ms ease, background 120ms ease;
+}
+
+.btn-salir:hover {
+    background: rgba(212, 166, 74, 0.12);
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+.btn-salir:active {
+    transform: translateY(0px);
+    filter: brightness(0.98);
+}
+
+.carrito {
+    display: flex;
+    align-items: center;
+}
+
+.carrito img {
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    transition: transform 120ms ease, filter 120ms ease;
+    filter: brightness(0) saturate(100%) invert(80%) sepia(40%) saturate(800%) hue-rotate(10deg);
+}
+
+.carrito img:hover {
+    transform: translateY(-1px) scale(1.06);
+    filter: brightness(1.15);
+}
+
+
+@media (max-width: 768px) {
+    .search-bar {
+        display: none; 
+    }
+
+    .app-header {
+        padding: 0 18px;
+    }
+
+    .login-btn {
+        padding: 10px 16px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 520px) {
+    .bienvenida-label {
+        display: none;
+    }
+
+    .bienvenida {
+        padding: 7px 10px;
+        gap: 10px;
+    }
+
+    .btn-salir {
+        padding: 8px 12px;
+    }
+}

@@ -1,0 +1,122 @@
+.carrito-container {
+    background-color: #FFFFFF;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #E8C77A;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.carrito-container h2 {
+    font-size: 20px;
+    color: #3B2314;
+    margin: 0;
+}
+
+.carrito-lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.carrito-item {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #FFF7E8;
+    border: 1px solid #E8C77A;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    color: #3B2314;
+}
+
+.item-precio {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #5C3A23;
+}
+
+.item-subtotal {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    color: #3B2314;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.btn-eliminar {
+    background-color: transparent;
+    color: #8B4513;
+    border: 2px solid #8B4513;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-eliminar:hover {
+    background-color: #8B4513;
+    color: #FFFFFF;
+    transform: scale(1.05);
+}
+
+.carrito-total {
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 2px solid #E8C77A;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.carrito-total h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #3B2314;
+    text-align: right;
+}
+
+.btn-comprar {
+    background-color: #D4AF37;
+    color: #3B2314;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-comprar:hover {
+    background-color: #C5A028;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-comprar:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.carrito-container p {
+    color: #5C3A23;
+    font-style: italic;
+}

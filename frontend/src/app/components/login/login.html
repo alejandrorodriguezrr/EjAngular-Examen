@@ -1,0 +1,30 @@
+<div class="login-container">
+
+  <h2>Iniciar sesión</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <label>Email</label>
+    <input type="email" placeholder="Introduce tu email" formControlName="email">
+    <small class="auth-error" *ngIf="f.email.touched && f.email.errors?.['required']">El email es obligatorio.</small>
+    <small class="auth-error" *ngIf="f.email.touched && f.email.errors?.['email']">Email no válido.</small>
+
+    <label>Contraseña</label>
+    <input type="password" placeholder="Introduce tu contraseña" formControlName="password">
+    <small class="auth-error" *ngIf="f.password.touched && f.password.errors?.['required']">La contraseña es obligatoria.</small>
+    <small class="auth-error" *ngIf="f.password.touched && f.password.errors?.['minlength']">Mínimo 8 caracteres.</small>
+
+    <button type="submit" [disabled]="loading || form.invalid">
+      {{ loading ? 'Entrando...' : 'Entrar' }}
+    </button>
+
+    <p class="auth-error" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+  </form>
+
+  <div class="registro-link">
+    <span>¿No tienes cuenta?</span>
+    <a routerLink="/registro">Regístrate ahora</a>
+  </div>
+
+</div>

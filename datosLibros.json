@@ -1,0 +1,91 @@
+[{
+  "_id": {
+    "$oid": "692f33635189d3be38ebeb6b"
+  },
+  "titulo": "Don Quijote",
+  "autor": "Cervantes",
+  "editorial": "Edebe",
+  "genero": "Clasico",
+  "precio": 20,
+  "stock": 9,
+  "__v": 0,
+  "imagen": "libro-1765308301797-150344471.jpg"
+},
+{
+  "_id": {
+    "$oid": "693876ecb43bacdad28c5cca"
+  },
+  "titulo": "Celestina",
+  "autor": "Cervantes",
+  "editorial": "Edebe",
+  "genero": "Clasico",
+  "precio": 20,
+  "stock": 10,
+  "imagen": "libro-1765308140288-368433022.jpg",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6961631bf02e8082c86e7156"
+  },
+  "titulo": "El principito",
+  "autor": "Juan",
+  "editorial": "SM",
+  "genero": "Clasico",
+  "precio": 15,
+  "stock": 30,
+  "imagen": "libro-1767990043163-179124867.jpg",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6961636ef02e8082c86e7159"
+  },
+  "titulo": "El Cid Campeador",
+  "autor": "Carlos del Solo",
+  "editorial": "Letrame",
+  "genero": "Clasico",
+  "precio": 25,
+  "stock": 10,
+  "imagen": "libro-1767990126929-50582923.jpg",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6963871b386830deea1e73c8"
+  },
+  "titulo": "La novia gitana",
+  "autor": "Carmen Mola",
+  "editorial": "DEBOLSILLO",
+  "genero": "novela policiaca",
+  "precio": 20,
+  "stock": 15,
+  "imagen": "libro-1768130331020-955631842.jpg",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69638778386830deea1e73cb"
+  },
+  "titulo": "La red púrpura",
+  "autor": "Carmen Mola",
+  "editorial": "DEBOLSILLO",
+  "genero": "novela policiaca",
+  "precio": 10,
+  "stock": 5,
+  "imagen": "libro-1768130424178-232570388.jpg",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "696387a5386830deea1e73cd"
+  },
+  "titulo": "La nena",
+  "autor": "Carmen Mola",
+  "editorial": "DEBOLSILLO",
+  "genero": "novela policiaca",
+  "precio": 30,
+  "stock": 50,
+  "imagen": "libro-1768130469289-785073046.jpg",
+  "__v": 0
+}]

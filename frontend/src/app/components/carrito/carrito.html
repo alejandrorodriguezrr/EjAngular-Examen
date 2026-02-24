@@ -1,0 +1,25 @@
+<div class="carrito-container">
+    <h2>Mi carrito</h2>
+
+    <div *ngIf="carrito.length > 0; else vacio">
+        <ul class="carrito-lista">
+            <li *ngFor="let item of carrito" class="carrito-item">
+                <div class="item-info">
+                    <h6>{{ item.libro.titulo }}</h6>
+                    <p class="item-precio">{{ item.libro.precio }} € x {{ item.cantidad }}</p>
+                    <p class="item-subtotal">Subtotal: {{ (item.libro.precio * item.cantidad).toFixed(2) }} €</p>
+                </div>
+                <button class="btn-eliminar" (click)="eliminarItem(item.libro._id)">Eliminar</button>
+            </li>
+        </ul>
+
+        <div class="carrito-total">
+            <h5>Total: {{ total.toFixed(2) }} €</h5>
+            <button class="btn-comprar" (click)="realizarCompra()">Realizar compra</button>
+        </div>
+    </div>
+
+    <ng-template #vacio>
+        <p>No hay libros en el carrito.</p>
+    </ng-template>
+</div>

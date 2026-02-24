@@ -1,0 +1,70 @@
+<div class="historial-container">
+  <div class="historial-header">
+    <h1>Historial de Compras</h1>
+    <p class="subtitle">Revisa todas tus compras realizadas</p>
+  </div>
+
+  <div *ngIf="cargando" class="loading-container">
+    <div class="spinner"></div>
+    <p>Cargando historial de compras...</p>
+  </div>
+
+  <div *ngIf="error && !cargando" class="error-container">
+    <div class="error-icon">⚠️</div>
+    <h3>Error</h3>
+    <p>{{ error }}</p>
+    <button *ngIf="clienteId" (click)="cargarHistorialCompras()" class="btn-retry">
+      Reintentar
+    </button>
+  </div>
+
+  <div *ngIf="sinCompras && !cargando && !error" class="sin-compras-container">
+    <div class="sin-compras-icon">📦</div>
+    <h3>Sin compras realizadas</h3>
+    <p>Usted no tiene compras realizadas</p>
+    <p class="subtitle-mensaje">¡Explora nuestro catálogo y realiza tu primera compra!</p>
+    <a href="/" class="btn-catalogo">Ver Catálogo</a>
+  </div>
+
+  <div *ngIf="!cargando && !error && !sinCompras" class="compras-lista">
+    <div class="compras-resumen">
+      <p>Total de compras: <strong>{{ comprasCliente.length }}</strong></p>
+    </div>
+
+    <div *ngFor="let compra of comprasCliente" class="compra-card">
+      <div class="compra-header" (click)="toggleCard(compra._id)">
+        <div class="compra-info">
+          <h3>Compra #{{ compra._id?.slice(-8).toUpperCase() }}</h3>
+          <p class="fecha">{{ formatearFecha(compra.fecha) }}</p>
+        </div>
+        <div class="compra-total">
+          <p class="label">Total</p>
+          <p class="precio">{{ formatearPrecio(compra.total) }}</p>
+        </div>
+      </div>
+
+      <div *ngIf="expandedCards[compra._id]" class="compra-body">
+        <div class="libros-lista">
+          <h4>Libros ({{ calcularTotalLibros(compra) }})</h4>
+          <div class="libros-grid">
+            <div *ngFor="let libro of compra.libros" class="libro-item">
+              <img 
+                [src]="'http://localhost:5000/uploads/' + libro.imagen" 
+                [alt]="libro.titulo"
+                class="libro-imagen"
+              />
+              <div class="libro-info">
+                <p class="libro-titulo">{{ libro.titulo }}</p>
+                <p class="libro-autor">{{ libro.autor }}</p>
+                <p class="libro-precio">
+                  {{ formatearPrecio(libro.precio) }} <span *ngIf="libro.cantidad">x {{ libro.cantidad }}</span>
+                </p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

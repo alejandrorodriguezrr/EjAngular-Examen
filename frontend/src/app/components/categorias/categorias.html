@@ -1,0 +1,12 @@
+<div class="categorias-container">
+  <h2>Categorías</h2>
+
+  <ul>
+    <li (click)="seleccionarCategoria('')">Todas</li>
+
+    <li *ngFor="let categoria of categorias"
+        (click)="seleccionarCategoria(categoria)">
+      {{ categoria }}
+    </li>
+  </ul>
+</div>

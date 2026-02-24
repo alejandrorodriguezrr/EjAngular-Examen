@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "69385cc96201115736b3a961"
+  },
+  "nombre": "Juan",
+  "apellidos": "Pérez García",
+  "email": "juan@example.com",
+  "password": "12345",
+  "direccion": "Calle Principal 123",
+  "telefono": 612345678,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6966801cf0fdf92a0ef2977b"
+  },
+  "nombre": "Ana",
+  "apellidos": "López Martínez",
+  "email": "ana.lopez@example.com",
+  "password": "ana123",
+  "direccion": "Avenida del Sol 45",
+  "telefono": 612345679,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6966801cf0fdf92a0ef2977c"
+  },
+  "nombre": "Carlos",
+  "apellidos": "Gómez Ruiz",
+  "email": "carlos.gomez@example.com",
+  "password": "carlos456",
+  "direccion": "Calle Mayor 78",
+  "telefono": 623456780,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6966801cf0fdf92a0ef2977d"
+  },
+  "nombre": "María",
+  "apellidos": "Sánchez Ortega",
+  "email": "maria.sanchez@example.com",
+  "password": "maria789",
+  "direccion": "Plaza Central 12",
+  "telefono": 634567891,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6966801cf0fdf92a0ef2977e"
+  },
+  "nombre": "Luis",
+  "apellidos": "Fernández Torres",
+  "email": "luis.fernandez@example.com",
+  "password": "luis321",
+  "direccion": "Calle Río 9",
+  "telefono": 645678902,
+  "__v": 0
+}]

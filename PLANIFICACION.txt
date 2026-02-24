@@ -1,0 +1,27 @@
+			PLANIFICACION
+
+- Tablas necesarias BD: libros, administrador, clientes, compra
+
+- Componentes: head, main, productos, latizq, latder, géneros, carrito, footer
+
+- HEADER: menú, buscador, login, icono compra
+
+-LATERAL IZQUIERDO: géneros, filtrador
+
+- MAIN: componentes de productos
+
+- LATERAL DERECHO: carrito, best Sellers
+
+- FOOTER: contacto, RRSS, "sobre nosotros" y ayuda
+
+- Funciones necesarias:
+
+	Comunicación bidireccional entre componentes (padre-hijo)
+
+	Pantalla alta, baja, modificación de libros siendo admin
+	
+	Pantalla registro clientes
+
+	Pantalla inicio de sesión para admin y clientes
+
+	Desarrollo pantalla carrito y compra

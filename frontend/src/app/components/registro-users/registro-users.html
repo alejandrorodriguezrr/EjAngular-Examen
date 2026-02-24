@@ -1,0 +1,57 @@
+<div class="auth-page">
+  <div class="auth-card">
+
+    <h2 class="auth-title">Crear cuenta</h2>
+
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <label class="auth-label">Nombre</label>
+      <input class="auth-input" type="text" placeholder="Introduce tu nombre" formControlName="nombre">
+      <small class="auth-error" *ngIf="f.nombre.touched && f.nombre.errors?.['required']">El nombre es obligatorio.</small>
+      <small class="auth-error" *ngIf="f.nombre.touched && f.nombre.errors?.['minlength']">Mínimo 2 caracteres.</small>
+
+      <label class="auth-label">Apellidos</label>
+      <input class="auth-input" type="text" placeholder="Introduce tus apellidos" formControlName="apellidos">
+      <small class="auth-error" *ngIf="f.apellidos.touched && f.apellidos.errors?.['required']">Los apellidos son obligatorios.</small>
+      <small class="auth-error" *ngIf="f.apellidos.touched && f.apellidos.errors?.['minlength']">Mínimo 2 caracteres.</small>
+
+      <label class="auth-label">Email</label>
+      <input class="auth-input" type="email" placeholder="Introduce tu email" formControlName="email">
+      <small class="auth-error" *ngIf="f.email.touched && f.email.errors?.['required']">El email es obligatorio.</small>
+      <small class="auth-error" *ngIf="f.email.touched && f.email.errors?.['email']">Email no válido.</small>
+
+      <label class="auth-label">Contraseña</label>
+      <input class="auth-input" type="password" placeholder="Crea una contraseña" formControlName="password">
+      <small class="auth-error" *ngIf="f.password.touched && f.password.errors?.['required']">La contraseña es obligatoria.</small>
+      <small class="auth-error" *ngIf="f.password.touched && f.password.errors?.['minlength']">Mínimo 8 caracteres.</small>
+      <small class="auth-error" *ngIf="f.password.touched && f.password.errors?.['passwordStrong']">
+        Debe incluir mayúscula, minúscula y número.
+      </small>
+
+      <label class="auth-label">Dirección</label>
+      <input class="auth-input" type="text" placeholder="Introduce tu dirección" formControlName="direccion">
+      <small class="auth-error" *ngIf="f.direccion.touched && f.direccion.errors?.['required']">La dirección es obligatoria.</small>
+
+      <label class="auth-label">Teléfono</label>
+      <input class="auth-input" type="text" placeholder="Introduce tu teléfono" formControlName="telefono">
+      <small class="auth-error" *ngIf="f.telefono.touched && f.telefono.errors?.['required']">El teléfono es obligatorio.</small>
+      <small class="auth-error" *ngIf="f.telefono.touched && f.telefono.errors?.['pattern']">
+        Solo números (9 a 15 dígitos).
+      </small>
+
+      <button class="auth-btn" type="submit" [disabled]="loading || form.invalid">
+        {{ loading ? 'Registrando...' : 'Registrarse' }}
+      </button>
+
+      <p class="auth-error" *ngIf="errorMsg">{{ errorMsg }}</p>
+      <p class="auth-success" *ngIf="successMsg">{{ successMsg }}</p>
+
+    </form>
+
+    <div class="auth-footer">
+      <span>¿Ya tienes cuenta?</span>
+      <a class="auth-link" routerLink="/login">Inicia sesión</a>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,81 @@
+.latizq-container {
+    width: 260px;
+    background-color: transparent; 
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+:host {
+    display: block;
+    height: 100%;
+}
+
+.filtros-container {
+    background-color: #FFFFFF;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #E8C77A;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.filtros-container h2 {
+    font-size: 20px;
+    color: #3B2314;
+    margin: 0;
+}
+
+.filtro-bloque {
+    background-color: #FFF7E8;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #E8C77A;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filtro-bloque h3 {
+    font-size: 15px;
+    color: #3B2314;
+    margin: 0;
+}
+
+input, select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #5C3A23;
+    background-color: #FFFFFF;
+    color: #1A1A1A;
+}
+
+.btn-filtrar {
+    padding: 10px;
+    background-color: #D4A64A;
+    color: #3B2314;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-filtrar:hover {
+    background-color: #E8C77A;
+}
+
+.btn-limpiar {
+    padding: 8px;
+    background-color: #F3E8D2;
+    color: #3B2314;
+    border: 1px solid #5C3A23;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-limpiar:hover {
+    background-color: #E8C77A55;
+}
