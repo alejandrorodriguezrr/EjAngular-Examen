@@ -7,11 +7,12 @@ import { Latder } from "./components/latder/latder";
 import { Footer } from "./components/footer/footer";
 import { Medio } from "./components/medio/medio";
 import { Main } from "./components/main/main";
+import { Nuevo } from "./components/nuevo/nuevo";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Head, Latizq, Latder, Footer, Medio, Main, CommonModule],
+  imports: [RouterOutlet, Head, Latizq, Latder, Footer, Medio, Main, CommonModule, Nuevo],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

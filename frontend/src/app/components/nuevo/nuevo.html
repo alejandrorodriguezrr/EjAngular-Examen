@@ -1,0 +1,7 @@
+<h4>Carrito actual</h4>
+
+<p *ngIf="carrito.length === 0">Carrito vacío</p>
+
+<div *ngFor="let item of carrito">
+  <b>{{ item.libro.titulo }}</b> (x{{ item.cantidad }})
+</div>
