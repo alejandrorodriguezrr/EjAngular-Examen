@@ -1,0 +1,9 @@
+<p>Nuevo constructor</p>
+
+<div *ngIf="carrito.length > 0">
+    <div *ngFor="let item of carrito">
+        <div *ngFor="let _ of repetir(item.cantidad)">
+            {{ item.libro.titulo }}
+        </div>
+    </div>
+</div>
