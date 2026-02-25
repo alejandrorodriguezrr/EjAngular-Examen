@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
+import { ComprasServices } from '../../services/compras-services';
 
 declare var M: any;
 
@@ -18,15 +19,46 @@ declare var M: any;
 export class NuevoLibro implements OnInit {
   selectedFile: File | null = null;
 
+  nombreLibro: string = ""
+
   constructor(
     public libroService: LibrosServices,
-    private router: Router
+    private router: Router,
+    private comprasService: ComprasServices
   ) {}
 
   ngOnInit(): void {
     this.libroService.libroSeleccionado = new LibroModel();
     this.obtenerLibros();
+    this.cargarProductomasVendido()
   }
+
+  cargarProductomasVendido(): void {
+
+    this.comprasService.mostrarCompras().subscribe({
+      next: (data: any) => {
+
+        const compras = Array.isArray(data) ? data : data.compras ?? [];
+        const contador: {[titulo: string]: number } = {}
+
+        compras.forEach((compra: any) => {
+          compra.forEach((libro: any) => {
+            
+            if(!contador[libro.titulo]){
+              contador[libro.titulo]=0
+            }
+
+            contador[libro.titulo]++
+          });
+        });
+
+        this.nombreLibro = Object.keys(contador).reduce((a,b) => 
+          contador[a] > contador[b] ? a:b
+        )
+      }
+    })
+
+  } 
 
   obtenerLibros(): void {
     this.libroService.mostrarLibros().subscribe({
