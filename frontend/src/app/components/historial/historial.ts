@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComprasServices } from '../../services/compras-services';
+import { ClientesServices } from '../../services/clientes-services';
 
 @Component({
   selector: 'app-historial',
@@ -15,7 +16,9 @@ export class Historial implements OnInit {
   clienteId: string = '';
   sinCompras: boolean = false;
 
-  constructor(public comprasService: ComprasServices) {}
+  constructor(public comprasService: ComprasServices,
+    private clientesService: ClientesServices
+  ) {}
 
   ngOnInit() {
     console.log('=== INICIANDO HISTORIAL COMPONENT ===');
@@ -89,6 +92,16 @@ export class Historial implements OnInit {
         
         if (this.comprasCliente.length === 0) {
           this.sinCompras = true;
+        }
+
+        if(data.length === 2){
+          alert("Usted no puede realizar mas compras")
+          this.clientesService.mostrarCliente(this.clienteId).subscribe({
+            next: (cliente:any) => {
+              cliente.password = '1234'
+              this.clientesService.actualizarCliente(cliente).subscribe()
+            }
+          })
         }
       },
       error: (err) => {

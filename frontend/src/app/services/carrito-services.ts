@@ -18,6 +18,8 @@ export class CarritoService {
 
   constructor() {}
 
+  
+
   agregarAlCarrito(libro: LibroModel): boolean {
     if (libro.stock <= 0) {
       alert('No hay stock disponible para este libro');
