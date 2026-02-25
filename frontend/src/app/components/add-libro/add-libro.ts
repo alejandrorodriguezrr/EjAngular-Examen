@@ -18,6 +18,9 @@ declare var M: any;
 export class NuevoLibro implements OnInit {
   selectedFile: File | null = null;
 
+  clienteTopPedidosNombre: string = ""
+  clienteTopPedidosCantidad: number = 0
+
   constructor(
     public libroService: LibrosServices,
     private router: Router
