@@ -1,31 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
+import { ComprasServices } from '../../services/compras-services';
 
 declare var M: any;
 
 @Component({
   selector: 'app-nuevo-libro',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgIf],
   templateUrl: './add-libro.html',
   styleUrls: ['./add-libro.css']
 })
 export class NuevoLibro implements OnInit {
   selectedFile: File | null = null;
 
+  clienteTopNombre: string=""
+  clienteTopTotal: number=0
+
   constructor(
     public libroService: LibrosServices,
-    private router: Router
+    private router: Router,
+    private comprasservices: ComprasServices
   ) {}
 
   ngOnInit(): void {
     this.libroService.libroSeleccionado = new LibroModel();
     this.obtenerLibros();
+    this.cargarclienteTop()
   }
 
   obtenerLibros(): void {
@@ -85,6 +91,34 @@ export class NuevoLibro implements OnInit {
         }
       });
     }
+  }
+
+  cargarclienteTop(): void{
+
+    this.comprasservices.mostrarCompras().subscribe({
+      next: (data: any) => {
+          console.log('Compras:', data); // <-- añade esto
+
+        const resumen: { [clienteId: string]: { total: number, cantidad: number } } = {};
+
+        data.forEach((compra: any) => {
+  if (!resumen[compra.clienteId]) {
+    resumen[compra.clienteId] = { total: 0, cantidad: 0 }; // inicializar
+  }
+  resumen[compra.clienteId].total += compra.total;
+  compra.libros.forEach((libro: any) => {
+    resumen[compra.clienteId].cantidad += libro.cantidad; // libro.cantidad no compra.cantidad
+  });
+});
+
+      const topId = Object.keys(resumen).reduce((a, b) =>
+        resumen[a].cantidad > resumen[b].cantidad ? a : b
+      );
+
+      this.clienteTopNombre = topId;
+      this.clienteTopTotal = resumen[topId].total;
+      }
+    })
   }
 
   editarLibro(libro: LibroModel): void {
