@@ -15,6 +15,8 @@ export class Historial implements OnInit {
   clienteId: string = '';
   sinCompras: boolean = false;
 
+  productoCaro: any = null
+
   constructor(public comprasService: ComprasServices) {}
 
   ngOnInit() {
@@ -90,6 +92,19 @@ export class Historial implements OnInit {
         if (this.comprasCliente.length === 0) {
           this.sinCompras = true;
         }
+
+        const todoslosproductos: any[] = []
+
+        data.forEach((compra: any) => {
+          compra.libros.forEach((libro: any) => {
+            todoslosproductos.push(libro)
+          })
+          
+        });
+
+        this.productoCaro = todoslosproductos.reduce((max, libro) =>
+          libro.precio > max.precio ? libro:max
+        )
       },
       error: (err) => {
         this.cargando = false;
