@@ -84,7 +84,7 @@ export class Historial implements OnInit {
 
     this.comprasService.mostrarComprasCliente(this.clienteId).subscribe({
       next: (data: any) => {
-        this.comprasCliente = data;
+        this.comprasCliente = data[1];
         this.cargando = false;
         
         if (this.comprasCliente.length === 0) {

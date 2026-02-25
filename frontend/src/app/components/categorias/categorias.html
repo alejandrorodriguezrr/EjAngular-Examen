@@ -10,3 +10,13 @@
     </li>
   </ul>
 </div>
+
+<div>
+  <button *ngFor="let categoria of categorias" (click)="seleccionarCategoria(categoria)">
+    {{ categoria }}
+  </button>
+
+  <div *ngFor="let producto of productosfiltrados">
+    <p>{{ producto.titulo }} - {{ producto.precio }}€</p>
+  </div>
+</div>
