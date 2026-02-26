@@ -1,0 +1,13 @@
+<div>
+  <button (click)="siguiente()">Siguiente cliente</button>
+
+  <div *ngIf="clienteActual">
+    <h3>{{ clienteActual.nombre }}</h3>
+
+    <div *ngFor="let compra of comprasActual">
+      <p>Pedido: {{ compra._id }}</p>
+      <p>Total: {{ compra.total }}€</p>
+      <hr>
+    </div>
+  </div>
+</div>
