@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
+import { ComprasServices } from '../../services/compras-services';
 
 declare var M: any;
 
@@ -17,15 +18,19 @@ declare var M: any;
 })
 export class NuevoLibro implements OnInit {
   selectedFile: File | null = null;
+  clienteTopNombre:string=""
+  clienteTopTotal:number=0
 
   constructor(
     public libroService: LibrosServices,
-    private router: Router
+    private router: Router,
+    private comprasService: ComprasServices
   ) {}
 
   ngOnInit(): void {
     this.libroService.libroSeleccionado = new LibroModel();
     this.obtenerLibros();
+    this.cargarClienteTop()
   }
 
   obtenerLibros(): void {
@@ -48,6 +53,30 @@ export class NuevoLibro implements OnInit {
         fileInput.value = '';
       }
     }
+  }
+
+  cargarClienteTop(){
+    this.comprasService.mostrarCompras().subscribe({
+      next: (compras:any) => {
+        let maxCantidad=0
+
+        compras.forEach((compra:any) => {
+          let cantidadCompra=0
+          
+          compra.libros.forEach((libro:any) =>{
+            cantidadCompra += libro.cantidad
+          })
+
+          if(cantidadCompra > maxCantidad){
+            maxCantidad=cantidadCompra
+            this.clienteTopNombre = compra.clienteId.nombre;
+            this.clienteTopTotal=compra.total
+          }
+
+        });
+
+      }
+    })
   }
 
   addLibro(form: NgForm): void {
