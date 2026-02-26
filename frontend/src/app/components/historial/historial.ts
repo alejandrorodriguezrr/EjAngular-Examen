@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComprasServices } from '../../services/compras-services';
+import { LibrosServices } from '../../services/libros-services';
+import { reduce } from 'rxjs';
 
 @Component({
   selector: 'app-historial',
@@ -15,7 +17,12 @@ export class Historial implements OnInit {
   clienteId: string = '';
   sinCompras: boolean = false;
 
-  constructor(public comprasService: ComprasServices) {}
+  nombresClientes: any[]=[]
+  productoMasCaro: string=""
+
+  constructor(public comprasService: ComprasServices,
+    private librosService: LibrosServices
+  ) {}
 
   ngOnInit() {
     console.log('=== INICIANDO HISTORIAL COMPONENT ===');
@@ -32,6 +39,16 @@ export class Historial implements OnInit {
       this.error = 'No se ha identificado al cliente. Por favor, inicie sesión.';
       console.error('❌ No se pudo obtener el ID del cliente');
     }
+  }
+
+  cargarproductomascaro(){
+    this.librosService.mostrarLibros().subscribe({
+      next: (data: any) => {
+        this.productoMasCaro = data.reduce((max:any, libro:any) => 
+          libro.precio >= max.precio
+        )
+      }
+    })
   }
 
   obtenerClienteId() {
