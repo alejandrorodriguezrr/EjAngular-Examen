@@ -15,6 +15,9 @@ export class Historial implements OnInit {
   clienteId: string = '';
   sinCompras: boolean = false;
 
+  nombreProducto: string=""
+  precioProducto: number=0
+
   constructor(public comprasService: ComprasServices) {}
 
   ngOnInit() {
@@ -86,6 +89,7 @@ export class Historial implements OnInit {
       next: (data: any) => {
         this.comprasCliente = data;
         this.cargando = false;
+        this.calcularProductoMasCaro()
         
         if (this.comprasCliente.length === 0) {
           this.sinCompras = true;
@@ -105,6 +109,30 @@ export class Historial implements OnInit {
       }
     });
   }
+
+  calcularProductoMasCaro() {
+  this.precioProducto = 0;
+  this.nombreProducto = "";
+
+  for (let i = 0; i < this.comprasCliente.length; i++) {
+    const compra = this.comprasCliente[i];
+    const productos = compra.libros ;
+
+    for (let j = 0; j < productos.length; j++) {
+      const linea = productos[j];
+
+      const producto = linea;
+
+      const precio = Number(producto.precio);
+      const nombre = producto.titulo;
+
+      if (precio > this.precioProducto) {
+        this.precioProducto = precio;
+        this.nombreProducto = nombre;
+      }
+    }
+  }
+}
 
   calcularTotalLibros(compra: any): number {
     return compra.libros?.length || 0;
