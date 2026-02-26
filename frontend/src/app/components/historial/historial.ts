@@ -14,6 +14,10 @@ export class Historial implements OnInit {
   error: string = '';
   clienteId: string = '';
   sinCompras: boolean = false;
+  ultimoProducto: any = null;
+  ultimoProductoRepetido: any[] = [];
+  cantidad=0
+  ultimacompra:any = null
 
   constructor(public comprasService: ComprasServices) {}
 
@@ -133,6 +137,29 @@ export class Historial implements OnInit {
 
   toggleCard(id: string) {
   this.expandedCards[id] = !this.expandedCards[id];
+  }
+
+  generarrepeticionultimo(){
+    this.ultimoProductoRepetido=[]
+    this.ultimoProducto=null
+    this.cantidad=0
+
+    const libros = this.ultimacompra.libros
+    const ultimaLinea = libros[libros.length-1]
+
+    const producto=ultimaLinea
+    const cantidad=Number(ultimaLinea.cantidad)
+
+    if(cantidad<1){
+      cantidad=1
+    }
+
+    this.cantidad=cantidad
+    this.ultimoProducto=producto
+
+    for (let i = 0; i < cantidad; i++) {
+      this.ultimoProductoRepetido.push(producto);
+    }
   }
 
 }

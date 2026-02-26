@@ -68,3 +68,11 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="ultimoProductoRepetido.length > 0">
+  <p>Último producto (repetido {{ cantidad }} veces):</p>
+
+  <div *ngFor="let p of ultimoProductoRepetido">
+    {{ p.titulo || p.nombre }} - {{ formatearPrecio(p.precio) }}
+  </div>
+</div>
