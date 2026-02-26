@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { ComprasServices } from '../../services/compras-services';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-historial',
-  imports: [CommonModule],
+  imports: [CommonModule, NgFor],
   templateUrl: './historial.html',
   styleUrl: './historial.css',
 })
@@ -14,8 +15,11 @@ export class Historial implements OnInit {
   error: string = '';
   clienteId: string = '';
   sinCompras: boolean = false;
+  clientesPrimeraCategoria: string[]=[]
 
-  constructor(public comprasService: ComprasServices) {}
+  constructor(public comprasService: ComprasServices,
+    private http:HttpClient
+  ) {}
 
   ngOnInit() {
     console.log('=== INICIANDO HISTORIAL COMPONENT ===');
@@ -32,6 +36,31 @@ export class Historial implements OnInit {
       this.error = 'No se ha identificado al cliente. Por favor, inicie sesión.';
       console.error('❌ No se pudo obtener el ID del cliente');
     }
+
+    this.cargarClientes()
+  }
+
+  cargarClientes(){
+    this.http.get<string[]>('http://localhost:5050/api/libros/generos').subscribe({
+      next: (categorias:any) => {
+        console.log('Categorias:', categorias);
+        const primeraCategoria=categorias[0]
+        this.comprasService.mostrarCompras().subscribe({  
+          next: (compras:any) => {
+            console.log('Compras:', compras);
+            compras.forEach((compra:any) => {
+              console.log('Compra:', compra);
+              compra.libros.forEach((libro:any) => {
+                console.log('Libros:', libro);
+                if(libro.generos===primeraCategoria){
+                  this.clientesPrimeraCategoria.push(compra.clienteId)
+                }
+              });
+            });
+          }
+        })
+      },
+    });
   }
 
   obtenerClienteId() {
