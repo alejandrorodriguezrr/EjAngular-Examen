@@ -1,0 +1,8 @@
+<p>Componente Padre</p>
+
+<app-hijo
+  [productos]="productosTodasCompras"
+  (totalCalculado)="recibirTotal($event)">
+</app-hijo>
+
+<p>Total recibido en el Padre: {{ totalProductos }}</p>
