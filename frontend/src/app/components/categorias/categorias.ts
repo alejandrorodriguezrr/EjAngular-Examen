@@ -21,6 +21,11 @@ export class Categorias implements OnInit {
 
   ngOnInit(): void {
     this.cargarCategorias();
+
+    const userData = localStorage.getItem('user');
+    const user = JSON.parse(userData);
+
+
   }
 
   cargarCategorias(): void {
