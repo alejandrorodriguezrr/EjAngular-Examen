@@ -12,6 +12,13 @@
 
     <div class="right-panel">
         <app-latder></app-latder>
+        <div>
+  <h2>Productos comprados en 2 o más pedidos</h2>
+  <p *ngIf="productos.length === 0">No hay productos repetidos</p>
+  <div *ngFor="let producto of productos">
+    <p>{{ producto }}</p>
+  </div>
+</div>
     </div>
 
 </div>
