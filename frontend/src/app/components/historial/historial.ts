@@ -15,6 +15,9 @@ export class Historial implements OnInit {
   clienteId: string = '';
   sinCompras: boolean = false;
 
+  nombreCliente:string=""
+  maxCantidad:number=0
+
   constructor(public comprasService: ComprasServices) {}
 
   ngOnInit() {
@@ -32,6 +35,8 @@ export class Historial implements OnInit {
       this.error = 'No se ha identificado al cliente. Por favor, inicie sesión.';
       console.error('❌ No se pudo obtener el ID del cliente');
     }
+
+    this.clienteMasPedidos()
   }
 
   obtenerClienteId() {
@@ -104,6 +109,33 @@ export class Historial implements OnInit {
         }
       }
     });
+  }
+
+  clienteMasPedidos(){
+
+    this.comprasService.mostrarCompras().subscribe({
+      next: (data:any) => {
+        let MaxCantidad=0
+        const contador: any={}
+
+        data.forEach((compra:any) => {
+
+          const nombre=compra.clienteId.nombre
+
+          if(!contador[nombre]){
+            contador[nombre]=0
+          }
+          contador[nombre]++
+          
+          if(contador[nombre]>MaxCantidad){
+            MaxCantidad=contador[nombre]
+            this.nombreCliente=nombre
+          }
+          this.maxCantidad=MaxCantidad
+        });
+      }
+    })
+
   }
 
   calcularTotalLibros(compra: any): number {
