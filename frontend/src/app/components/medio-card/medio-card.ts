@@ -15,7 +15,19 @@ export class MedioCard {
   constructor(private carritoService: CarritoService) {}
 
   agregarAlCarrito(): void {
-    const agregado = this.carritoService.agregarAlCarrito(this.libro);
+    const carrito = this.carritoService.obtenerCarrito();
+    let total=0
+
+    for(let i=0;i<carrito.length;i++){
+      total+=carrito[i].cantidad
+    }
+
+    if(total>=6){
+      alert("No puedes añadir mas unidades")
+      return
+    }
+
+    this.carritoService.agregarAlCarrito(this.libro)
     
   }
 }

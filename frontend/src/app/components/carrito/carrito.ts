@@ -84,4 +84,12 @@ export class Carrito implements OnInit {
       }
     });
   }
+
+  comprobacionCarrito(){
+    this.carritoService.carrito$.subscribe(items => {
+      this.carrito = items;
+      this.total = this.carritoService.calcularTotal();
+    });
+
+  }
 }
