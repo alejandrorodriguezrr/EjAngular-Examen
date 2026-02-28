@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
+import { ComprasServices } from '../../services/compras-services';
 
 declare var M: any;
 
@@ -20,12 +21,16 @@ export class NuevoLibro implements OnInit {
 
   constructor(
     public libroService: LibrosServices,
-    private router: Router
+    private router: Router,
+    private comprasService: ComprasServices
   ) {}
+
+  nombreProducto:string=""
 
   ngOnInit(): void {
     this.libroService.libroSeleccionado = new LibroModel();
     this.obtenerLibros();
+    this.productomasVendido()
   }
 
   obtenerLibros(): void {
@@ -114,6 +119,33 @@ export class NuevoLibro implements OnInit {
 
   volver(): void {
     this.router.navigate(['/volver']);
+  }
+
+  productomasVendido(){
+
+    this.comprasService.mostrarCompras().subscribe({
+      next: (data:any) => {
+        let maxVendido=0
+
+        data.forEach((compra:any) => {
+          compra.libros.forEach((libro:any) => {
+            let cantidad=0
+            data.forEach((c:any) => {
+              c.libros.forEach((l:any) => {
+                if(l.titulo === libro.titulo){
+                  cantidad++
+                }
+              })
+            })
+
+            if(cantidad>maxVendido){
+            maxVendido=cantidad
+            this.nombreProducto=libro.titulo
+          }
+          })
+        });
+      }
+    })
   }
 
   onFileSelected(event: Event): void {
