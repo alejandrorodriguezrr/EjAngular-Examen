@@ -15,6 +15,8 @@ export class Historial implements OnInit {
   clienteId: string = '';
   sinCompras: boolean = false;
 
+  todasCompras: number=0
+
   constructor(public comprasService: ComprasServices) {}
 
   ngOnInit() {

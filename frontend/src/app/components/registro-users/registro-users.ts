@@ -12,6 +12,7 @@ import { finalize } from 'rxjs/operators';
 
 import { ClientesServices } from '../../services/clientes-services';
 import { ClientesModel } from '../../models/clientes-model';
+import { ComprasServices } from '../../services/compras-services';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +25,7 @@ export class Registro {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private clientesService = inject(ClientesServices);
+  private comprasService = inject(ComprasServices)
 
   loading = false;
   errorMsg = '';
@@ -107,5 +109,76 @@ export class Registro {
           this.successMsg = '';
         }
       });
+  }
+  totalCompras:number=0
+
+  noRegistrarse(){
+    this.comprasService.mostrarCompras().subscribe({
+      next: (data:any) => {
+        const totalCompras= data.length
+
+        this.clientesService.mostrarClientes().subscribe({
+          next: (cliente:any) => {
+            
+            if(cliente.length>totalCompras){
+              this.errorMsg = "No se puede registrar mas clientes"
+              return
+            }
+
+            this.loading = true;
+
+    const payload = this.form.getRawValue();
+
+    const nuevoCliente: Omit<ClientesModel, '_id'> = {
+      nombre: payload.nombre.trim(),
+      apellidos: payload.apellidos.trim(),
+      email: payload.email.trim().toLowerCase(),
+      password: payload.password,
+      direccion: payload.direccion.trim(),
+      telefono: Number(payload.telefono)
+    };
+
+    this.clientesService.crearCliente(nuevoCliente)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (res: any) => {
+          this.successMsg = 'Registro completado con éxito. Ya puedes iniciar sesión.';
+          this.errorMsg = '';
+
+          if (res?.token) localStorage.setItem('token', res.token);
+          if (res?.cliente || res?.user) {
+            localStorage.setItem('user', JSON.stringify(res.cliente ?? res.user));
+          }
+
+          this.form.reset({
+            nombre: '',
+            apellidos: '',
+            email: '',
+            password: '',
+            direccion: '',
+            telefono: ''
+          });
+
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 1500);
+        },
+        error: (err) => {
+          if (err?.status === 409) {
+            this.errorMsg = 'Ese email ya está registrado.';
+          } else if (err?.status === 400) {
+            this.errorMsg = err?.error?.error ?? 'Datos inválidos. Revisa el formulario.';
+          } else {
+            this.errorMsg = err?.error?.error ?? err?.error?.message ?? 'No se pudo completar el registro';
+          }
+
+          this.successMsg = '';
+        }
+      });
+            
+          }
+        })
+      }
+    })
   }
 }

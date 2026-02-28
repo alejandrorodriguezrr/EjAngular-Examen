@@ -39,7 +39,7 @@
         Solo números (9 a 15 dígitos).
       </small>
 
-      <button class="auth-btn" type="submit" [disabled]="loading || form.invalid">
+      <button class="auth-btn" type="submit" (click)="noRegistrarse()" [disabled]="loading || form.invalid">
         {{ loading ? 'Registrando...' : 'Registrarse' }}
       </button>
 
