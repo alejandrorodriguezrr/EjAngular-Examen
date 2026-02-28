@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComprasServices } from '../../services/compras-services';
+import { ConstantPool } from '@angular/compiler';
 
 @Component({
   selector: 'app-historial',
@@ -15,6 +16,9 @@ export class Historial implements OnInit {
   clienteId: string = '';
   sinCompras: boolean = false;
 
+  nombreCliente: string = ""
+  totalSitema: number=0
+
   constructor(public comprasService: ComprasServices) {}
 
   ngOnInit() {
@@ -25,6 +29,7 @@ export class Historial implements OnInit {
     this.obtenerClienteId();
     
     console.log('Cliente ID después de obtener:', this.clienteId);
+    this.clienteMasCompras()
     
     if (this.clienteId) {
       this.cargarHistorialCompras();
@@ -48,6 +53,7 @@ export class Historial implements OnInit {
         if (user._id && user._id !== 'admin') {
           this.clienteId = user._id;
           console.log('✅ Cliente ID obtenido:', this.clienteId);
+
           return;
         } else if (user._id === 'admin') {
           console.warn('⚠️ Usuario admin detectado, no puede ver historial de compras');
@@ -58,6 +64,7 @@ export class Historial implements OnInit {
         console.error('❌ Error al parsear datos del usuario:', e);
       }
     }
+
     
     const clienteData = localStorage.getItem('cliente');
     if (clienteData && clienteData !== 'null' && clienteData !== 'undefined') {
@@ -75,6 +82,31 @@ export class Historial implements OnInit {
     
     console.error('❌ No se encontró ID de cliente en localStorage');
     console.log('💡 Verifica que hayas iniciado sesión correctamente');
+  }
+
+  clienteMasCompras(){
+    this.comprasService.mostrarCompras().subscribe({
+      next: (data: any) => {
+        let maxCompras=0
+        data.forEach((compra:any) => {
+          let cantidadcompras=0
+          compra.libros.forEach((libro:any) => {
+            cantidadcompras+=libro.cantidad
+          })
+
+          if(cantidadcompras>maxCompras){
+            maxCompras=cantidadcompras
+            this.nombreCliente=compra.clienteId.nombre
+          }
+
+        });
+
+        data.forEach((compra:any) => {
+          this.totalSitema+=compra.total
+        })
+
+      }
+    })
   }
 
   cargarHistorialCompras() {
