@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
+import { ClientesServices } from '../../services/clientes-services';
+import { ComprasServices } from '../../services/compras-services';
 
 declare var M: any;
 
 @Component({
   selector: 'app-nuevo-libro',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgFor],
   templateUrl: './add-libro.html',
   styleUrls: ['./add-libro.css']
 })
@@ -20,12 +22,15 @@ export class NuevoLibro implements OnInit {
 
   constructor(
     public libroService: LibrosServices,
-    private router: Router
+    private router: Router,
+    private clientesServices: ClientesServices,
+    private comprasServices: ComprasServices
   ) {}
 
   ngOnInit(): void {
     this.libroService.libroSeleccionado = new LibroModel();
     this.obtenerLibros();
+    this.obtenerNombres()
   }
 
   obtenerLibros(): void {
@@ -48,6 +53,37 @@ export class NuevoLibro implements OnInit {
         fileInput.value = '';
       }
     }
+  }
+
+  productomascaro:string=""
+  nombreclientes:string[]=[]
+
+  obtenerNombres(){
+
+    this.comprasServices.mostrarCompras().subscribe({
+      next: (compras:any) => {
+        let MaxCaro=0
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any) => {
+            if(libro.precio>MaxCaro){
+              MaxCaro=libro.precio
+              this.productomascaro=libro.titulo
+            }
+          })
+        });
+
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any) => {
+            if(libro.titulo===this.productomascaro){
+              if(!this.nombreclientes.includes(compra.clienteId.nombre)){
+                  this.nombreclientes.push(compra.clienteId.nombre)
+              }
+            }
+          });
+        })
+        
+      }
+    })
   }
 
   addLibro(form: NgForm): void {
