@@ -37,6 +37,11 @@ export class Carrito implements OnInit {
       return;
     }
 
+    if (this.carrito.length % 2 !== 0) {
+      alert('Debes comprar un número par de productos');
+      return; // para aquí y no hace la compra
+    }
+
     const userRaw = localStorage.getItem('user');
     if (!userRaw) {
       alert('Debes iniciar sesión para realizar una compra');
@@ -56,6 +61,7 @@ export class Carrito implements OnInit {
     this.carrito.forEach(item => {
       cantidades[item.libro._id] = item.cantidad;
     });
+    
 
     const compra = {
       clienteId: clienteId,
@@ -74,8 +80,14 @@ export class Carrito implements OnInit {
 
     this.comprasService.crearCompra(compra).subscribe({
       next: () => {
-        alert('Compra realizada con éxito');
-        this.carritoService.vaciarCarrito(); 
+
+        if(compra.libros.length%2==0){
+          alert('Compra realizada con éxito');
+          this.carritoService.vaciarCarrito(); 
+        }else{
+          alert('Debes comprar numeros pares')
+        }
+        
       },
       error: (err) => {
         console.error('Error al realizar la compra:', err);
