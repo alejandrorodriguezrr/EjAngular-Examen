@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 
 import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
+import { ClientesServices } from '../../services/clientes-services';
+import { ComprasServices } from '../../services/compras-services';
 
 declare var M: any;
 
@@ -20,7 +22,9 @@ export class NuevoLibro implements OnInit {
 
   constructor(
     public libroService: LibrosServices,
-    private router: Router
+    private router: Router,
+    private clientesService: ClientesServices,
+    private comprasServices: ComprasServices
   ) {}
 
   ngOnInit(): void {
@@ -95,6 +99,26 @@ export class NuevoLibro implements OnInit {
     if (fileInput) {
       fileInput.value = '';
     }
+  }
+
+  contadorVeces: number=0
+
+  mostrarNumClientes(titulo:string){
+    this.comprasServices.mostrarCompras().subscribe({
+      next: (compras:any) => {
+        const clientes: string[] = []
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any) => {
+            if(libro.titulo===titulo){
+              if(!clientes.includes(compra.clienteId)){
+                clientes.push(compra.clienteId)
+              }
+            }
+          })
+        });
+        alert(`Clientes que han comprado este producto: ${clientes.length}`);
+      }
+    })
   }
 
   BorrarLibro(_id: string): void {
