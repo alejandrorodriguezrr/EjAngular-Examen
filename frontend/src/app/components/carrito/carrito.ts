@@ -46,6 +46,24 @@ export class Carrito implements OnInit {
     const cliente = JSON.parse(userRaw);
     const clienteId = cliente._id ?? cliente.id;
 
+    this.comprasService.mostrarComprasCliente(cliente).subscribe({
+      next: (compras:any) => { 
+        const librosYaComprados: string[] = []
+
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any) => {
+            librosYaComprados.push(libro.libroId)
+          })
+        });
+        const hayNuevos = this.carrito.some(item => 
+          !librosYaComprados.includes(item.libro._id)
+        )
+      }
+      
+    })
+
+    
+
     if (!clienteId) {
       console.error('Usuario sin ID:', cliente);
       alert('Error: el usuario logueado no tiene ID. Revisa el login.');
@@ -84,4 +102,5 @@ export class Carrito implements OnInit {
       }
     });
   }
+
 }
