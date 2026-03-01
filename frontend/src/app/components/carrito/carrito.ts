@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CarritoService, ItemCarrito } from '../../services/carrito-services';
 import { ComprasServices } from '../../services/compras-services';
 
 @Component({
   selector: 'app-carrito',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,NgIf],
   templateUrl: './carrito.html',
   styleUrl: './carrito.css',
 })
@@ -25,6 +25,7 @@ export class Carrito implements OnInit {
       this.carrito = items;
       this.total = this.carritoService.calcularTotal();
     });
+    this.sacarProducto()
   }
 
   eliminarItem(libroId: string): void {
@@ -83,5 +84,26 @@ export class Carrito implements OnInit {
         alert(msg);
       }
     });
+  }
+
+  nombreProducto:string=""
+  totalveces:number=0
+
+  sacarProducto(){
+    this.comprasService.mostrarCompras().subscribe({
+      next: (compras:any) => {
+        let veces=0
+
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any) => {
+            
+            if(libro.titulo === this.nombreProducto){
+              veces++
+            }
+          });
+        });
+        this.totalveces=veces
+      }
+    })
   }
 }

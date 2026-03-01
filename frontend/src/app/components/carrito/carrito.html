@@ -23,3 +23,8 @@
         <p>No hay libros en el carrito.</p>
     </ng-template>
 </div>
+
+<input type="text" [(ngModel)]="nombreProducto">
+<button (click)="sacarProducto()"></button>
+<p *ngIf="totalveces > 0">Se ha comprado {{ totalveces }} veces</p>
+<p *ngIf="totalveces === 0">No se ha comprado ninguna vez</p>
