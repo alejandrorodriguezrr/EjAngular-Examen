@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { ComprasServices } from '../../services/compras-services';
 
 @Component({
   selector: 'app-categorias',
@@ -12,12 +13,16 @@ import { HttpClient } from '@angular/common/http';
 export class Categorias implements OnInit {
 
   categorias: string[] = [];
+  productosFiltrados: any[] = []
+  clienteId: string=""
 
   @Output() categoriaSeleccionada = new EventEmitter<string>();
 
   private urlCategorias = 'http://localhost:5050/api/libros/generos';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private comprasServices: ComprasServices
+  ) {}
 
   ngOnInit(): void {
     this.cargarCategorias();
@@ -31,6 +36,36 @@ export class Categorias implements OnInit {
       },
       error: (e) => console.log('Error cargando categorias', e)
     });
+  }
+
+  soloComprados(categoria:string){
+    const userRaw = localStorage.getItem('user');
+    if (!userRaw) {
+      alert('Debes iniciar sesión para realizar una compra');
+      return;
+    }
+
+    const cliente = JSON.parse(userRaw);
+    const clienteId = cliente._id ?? cliente.id;
+
+    if (!clienteId) {
+      console.error('Usuario sin ID:', cliente);
+      alert('Error: el usuario logueado no tiene ID. Revisa el login.');
+      return;
+    }
+
+    this.comprasServices.mostrarComprasCliente(clienteId).subscribe({
+      next: (compras:any) => {
+        this.productosFiltrados=[]
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any) => {
+            if(libro.genero===categoria){
+              this.productosFiltrados.push(libro)
+            }
+          });
+        });
+      }
+    })
   }
 
   seleccionarCategoria(categoria: string): void {
