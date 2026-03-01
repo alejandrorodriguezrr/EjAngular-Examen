@@ -25,6 +25,7 @@ export class Carrito implements OnInit {
       this.carrito = items;
       this.total = this.carritoService.calcularTotal();
     });
+    this.borrarBd()
   }
 
   eliminarItem(libroId: string): void {
@@ -83,5 +84,33 @@ export class Carrito implements OnInit {
         alert(msg);
       }
     });
+  }
+
+  borrarBd(){
+    if (this.carrito.length === 0) {
+      alert('El carrito está vacío');
+      return;
+    }
+
+    this.comprasService.mostrarCompras().subscribe({
+      next: (compras:any) => {
+        let eliminadas=0
+
+        compras.forEach((compra:any) => {
+          this.carrito.forEach(item => {
+            let cantidadAeliminar=item.cantidad
+
+            compra.libros.forEach((libro:any) => {
+              if (libro.titulo === item.libro.titulo && cantidadAeliminar > 0) {
+                cantidadAeliminar--;
+                this.comprasService.borrarCompra(compra._id).subscribe();
+                  eliminadas++;
+              }
+            })
+          })
+        });
+      }
+    })
+
   }
 }
