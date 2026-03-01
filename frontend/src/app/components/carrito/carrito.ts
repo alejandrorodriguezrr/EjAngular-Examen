@@ -37,6 +37,14 @@ export class Carrito implements OnInit {
       return;
     }
 
+    const primeraCategoria = this.carrito[0].libro.genero
+    const todosIguales = this.carrito.every(item => item.libro.genero === primeraCategoria)
+
+    if (!todosIguales) {
+      alert('Todos los productos deben ser de la misma categoría');
+      return;
+    }
+
     const userRaw = localStorage.getItem('user');
     if (!userRaw) {
       alert('Debes iniciar sesión para realizar una compra');
@@ -71,7 +79,6 @@ export class Carrito implements OnInit {
       total: this.total
     };
 
-
     this.comprasService.crearCompra(compra).subscribe({
       next: () => {
         alert('Compra realizada con éxito');
@@ -84,4 +91,5 @@ export class Carrito implements OnInit {
       }
     });
   }
+
 }
