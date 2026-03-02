@@ -1,0 +1,4 @@
+<p>COMPONENTE PADRE</p>
+<p>Nombre del usuario : {{ userLogado }}</p>
+<p>Correo Logado : {{ recibirDato }}</p>
+<app-hijo [reciboPadre]="idUser" (mandarPadre)="recibirDato = $event" ></app-hijo>
