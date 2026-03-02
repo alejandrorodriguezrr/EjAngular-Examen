@@ -71,6 +71,67 @@ export class Carrito implements OnInit {
       total: this.total
     };
 
+    this.comprasService.crearCompra(compra).subscribe({
+      next: () => {
+        alert('Compra realizada con éxito');
+        this.carritoService.vaciarCarrito(); 
+      },
+      error: (err) => {
+        console.error('Error al realizar la compra:', err);
+        const msg = err?.error?.message ?? 'Error al realizar la compra';
+        alert(msg);
+      }
+    });
+  }
+
+  comprobarCompra(){
+    const userRaw = localStorage.getItem('user');
+    if (!userRaw) {
+      alert('Debes iniciar sesión para realizar una compra');
+      return;
+    }
+
+    const cliente = JSON.parse(userRaw);
+    const clienteId = cliente._id ?? cliente.id;
+
+    if (!clienteId) {
+      console.error('Usuario sin ID:', cliente);
+      alert('Error: el usuario logueado no tiene ID. Revisa el login.');
+      return;
+    }
+
+    this.comprasService.mostrarComprasCliente(clienteId).subscribe({
+      next: (compras:any) => {
+        const yaComprados: string[]=[]
+
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any) => {
+            yaComprados.push(libro.titulo)
+          })
+        });
+
+        const carritoFiltrado=this.carrito.filter(item => 
+          !yaComprados.includes(item.libro.titulo)
+        )
+
+        if(carritoFiltrado.length===0){
+          alert("Ya has comprado todos esos productos antes")
+          return
+        }
+
+        const compra = {
+      clienteId: clienteId,
+      libros: this.carrito.map(item => ({
+        libroId: item.libro._id,
+        titulo: item.libro.titulo,
+        autor: item.libro.autor,
+        precio: item.libro.precio,
+        cantidad: item.cantidad,
+        imagen: item.libro.imagen
+      })),
+      fecha: new Date(),
+      total: this.total
+    };
 
     this.comprasService.crearCompra(compra).subscribe({
       next: () => {
@@ -83,5 +144,7 @@ export class Carrito implements OnInit {
         alert(msg);
       }
     });
+      }
+    })
   }
 }
