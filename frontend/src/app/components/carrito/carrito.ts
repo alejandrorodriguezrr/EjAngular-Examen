@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CarritoService, ItemCarrito } from '../../services/carrito-services';
 import { ComprasServices } from '../../services/compras-services';
+import { ClientesServices } from '../../services/clientes-services';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-carrito',
@@ -17,14 +19,48 @@ export class Carrito implements OnInit {
 
   constructor(
     private carritoService: CarritoService,
-    private comprasService: ComprasServices
+    private comprasService: ComprasServices,
+    private clientesService: ClientesServices,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+
     this.carritoService.carrito$.subscribe(items => {
       this.carrito = items;
       this.total = this.carritoService.calcularTotal();
     });
+  }
+
+  metodo(){
+    const userRaw = localStorage.getItem('user');
+    if (!userRaw) {
+      alert('Debes iniciar sesión para realizar una compra');
+      return;
+    }
+
+    const cliente = JSON.parse(userRaw);
+    const clienteId = cliente._id ?? cliente.id;
+
+    if (!clienteId) {
+      console.error('Usuario sin ID:', cliente);
+      alert('Error: el usuario logueado no tiene ID. Revisa el login.');
+      return;
+    }
+    this.comprasService.mostrarComprasCliente(clienteId).subscribe({
+      next: (compras:any) => {
+        if(compras.length>2){
+          alert("Usted no puede realizar mas compras")
+          this.clientesService.borrarCliente(clienteId).subscribe({
+            next: (clientes:any) => {
+              localStorage.removeItem('user')
+              localStorage.removeItem('autenticado')
+              this.router.navigate(['/login'])
+            }
+          })
+        }
+      }
+    })
   }
 
   eliminarItem(libroId: string): void {
@@ -71,11 +107,11 @@ export class Carrito implements OnInit {
       total: this.total
     };
 
-
     this.comprasService.crearCompra(compra).subscribe({
       next: () => {
         alert('Compra realizada con éxito');
         this.carritoService.vaciarCarrito(); 
+        this.metodo()
       },
       error: (err) => {
         console.error('Error al realizar la compra:', err);

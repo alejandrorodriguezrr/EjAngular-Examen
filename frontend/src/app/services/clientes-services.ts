@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { booleanAttribute, Injectable } from '@angular/core';
 import { ClientesModel } from '../models/clientes-model';
 import { HttpClient } from '@angular/common/http';
+import { ComprasServices } from './compras-services';
 
 @Injectable({ providedIn: 'root' })
 export class ClientesServices {
@@ -8,7 +9,7 @@ export class ClientesServices {
   clientes: ClientesModel[];
   URL = 'http://localhost:5050/api/cliente/'; 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private comprasServices: ComprasServices) {
     this.clienteSeleccionado = new ClientesModel();
     this.clientes = [];
   }
@@ -36,4 +37,5 @@ export class ClientesServices {
   borrarCliente(id: string) {
     return this.http.delete(this.URL + id);
   }
+
 }
