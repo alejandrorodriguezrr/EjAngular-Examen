@@ -19,3 +19,4 @@ app.use('/api/libros', require('./routes/libros.routes.js'));
 app.use('/uploads', express.static('server/uploads'));
 app.use('/api/cliente', require('./routes/cliente.routes.js'));
 app.use('/api/compras', require('./routes/compras.routes.js'));
+app.use('/api/proveedores', require('./routes/proveedores.routes.js'));

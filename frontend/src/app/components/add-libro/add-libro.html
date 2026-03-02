@@ -106,10 +106,16 @@
             <a href="#" (click)="BorrarLibro(libro._id); $event.preventDefault()">
               <i class="material-icons">delete</i>
             </a>
+
+            <a href="#" (click)="mostrarFormProveedor(libro._id); $event.preventDefault()">
+              <i class="material-icons">proveedores</i>
+            </a>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-
+  <div *ngIf="mostrarProveedor">
+    <app-proveedores></app-proveedores>
+  </div>
 </div>

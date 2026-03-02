@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
+import { Proveedores } from "../proveedores/proveedores";
 
 declare var M: any;
 
 @Component({
   selector: 'app-nuevo-libro',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Proveedores, NgIf],
   templateUrl: './add-libro.html',
   styleUrls: ['./add-libro.css']
 })
@@ -134,6 +135,12 @@ export class NuevoLibro implements OnInit {
     }
 
     this.selectedFile = file;
+  }
+
+  mostrarProveedor:boolean=false
+
+  mostrarFormProveedor(libroId: string){
+    this.mostrarProveedor=true
   }
 
 }
