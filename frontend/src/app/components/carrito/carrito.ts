@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CarritoService, ItemCarrito } from '../../services/carrito-services';
 import { ComprasServices } from '../../services/compras-services';
 
 @Component({
   selector: 'app-carrito',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgFor],
   templateUrl: './carrito.html',
   styleUrl: './carrito.css',
 })
