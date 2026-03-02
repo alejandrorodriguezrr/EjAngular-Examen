@@ -76,6 +76,7 @@ export class Carrito implements OnInit {
       next: () => {
         alert('Compra realizada con éxito');
         this.carritoService.vaciarCarrito(); 
+        window.location.reload()
       },
       error: (err) => {
         console.error('Error al realizar la compra:', err);
