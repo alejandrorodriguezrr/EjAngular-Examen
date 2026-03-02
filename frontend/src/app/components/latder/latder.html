@@ -2,6 +2,10 @@
     <div class="carrito-container">
 
         <app-carrito></app-carrito>
-    
+        <input type="text" [(ngModel)]="productoabuscar">
+        <button (click)="buscador()">BUSCAR PRODUCTO</button>
+
+        <p>{{contador}}</p>
+        
     </div>
 </div>
