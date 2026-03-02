@@ -13,4 +13,7 @@ router.get('/cliente/:clienteId', comprasControl.mostrarComprasCliente);
 
 router.delete('/:id', comprasControl.borrarCompra);
 
+router.delete('/:id', comprasControl.borrarComprasCliente);
+
+
 module.exports = router;

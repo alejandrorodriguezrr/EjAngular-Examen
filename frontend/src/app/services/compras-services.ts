@@ -34,4 +34,8 @@ export class ComprasServices {
   borrarCompra(id: string) {
     return this.http.delete(this.URL + id);
   }
+
+  borrarComprasCliente(idCliente: string) {
+    return this.http.delete(this.URL + 'cliente/' + idCliente);
+  }
 }
