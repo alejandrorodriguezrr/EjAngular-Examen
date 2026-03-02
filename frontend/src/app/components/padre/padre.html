@@ -1,0 +1,4 @@
+<h2>COMPONENTE PADRE</h2>
+<p>Numero de compras : {{recibir}}</p>
+
+<app-hijo [recogePadre]="numeroCompras" (mandaalHijo)="recibir = $event"></app-hijo>
