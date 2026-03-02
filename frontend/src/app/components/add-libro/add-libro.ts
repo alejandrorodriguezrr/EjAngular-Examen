@@ -5,13 +5,16 @@ import { Router } from '@angular/router';
 
 import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
+import { ClientesServices } from '../../services/clientes-services';
+import { ComprasServices } from '../../services/compras-services';
+import { Hijo } from '../hijo/hijo';
 
 declare var M: any;
 
 @Component({
   selector: 'app-nuevo-libro',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Hijo],
   templateUrl: './add-libro.html',
   styleUrls: ['./add-libro.css']
 })
@@ -20,7 +23,9 @@ export class NuevoLibro implements OnInit {
 
   constructor(
     public libroService: LibrosServices,
-    private router: Router
+    private router: Router,
+    private clientesService: ClientesServices,
+    private comprasService: ComprasServices
   ) {}
 
   ngOnInit(): void {
@@ -135,5 +140,29 @@ export class NuevoLibro implements OnInit {
 
     this.selectedFile = file;
   }
+
+  numClientesProducto: number = 0;
+mostrarHijo: boolean = false;
+
+clientesQueCompraron(titulo: string): void {
+  this.comprasService.mostrarCompras().subscribe({
+    next: (data: any) => {
+      const clientes: string[] = [];
+
+      data.forEach((compra: any) => {
+        compra.libros.forEach((libro: any) => {
+          if (libro.titulo === titulo) {
+            if (!clientes.includes(compra.clienteId)) {
+              clientes.push(compra.clienteId);
+            }
+          }
+        });
+      });
+
+      this.numClientesProducto = clientes.length;
+      this.mostrarHijo = true;
+    }
+  });
+}
 
 }

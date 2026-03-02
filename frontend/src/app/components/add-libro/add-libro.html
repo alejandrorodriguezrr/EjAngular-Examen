@@ -106,10 +106,15 @@
             <a href="#" (click)="BorrarLibro(libro._id); $event.preventDefault()">
               <i class="material-icons">delete</i>
             </a>
+
+            <a href="#" (click)="clientesQueCompraron(libro.titulo); $event.preventDefault()">
+              <i class="material-icons">person</i>
+            </a>
           </td>
         </tr>
       </tbody>
     </table>
+    <app-hijo [reciboPadre]="numClientesProducto"></app-hijo>
   </div>
 
 </div>
