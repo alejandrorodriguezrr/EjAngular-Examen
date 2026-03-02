@@ -1,0 +1,12 @@
+<p>COMPONENTE HIJO</p>
+<div *ngFor="let o of reciboPadre">
+    <p>{{o}}</p>
+</div>
+
+<div>
+  <h3>Clientes sin compras</h3>
+  <p *ngIf="ningunaCompra.length === 0">Todos los clientes han comprado</p>
+  <div *ngFor="let cliente of ningunaCompra">
+    <p>{{ cliente }}</p>
+  </div>
+</div>
