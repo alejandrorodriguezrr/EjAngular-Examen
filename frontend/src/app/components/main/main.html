@@ -8,10 +8,14 @@
 
     <div class="main-panel">
         <app-medio></app-medio>
+        <div *ngFor="let p of nombreProductos">
+            <p>Nombre de los productos : {{p}}</p>
+        </div>
     </div>
 
     <div class="right-panel">
         <app-latder></app-latder>
+        
     </div>
 
 </div>
