@@ -1,0 +1,15 @@
+<table>
+  <tr *ngFor="let libro of LibrosServices.libros">
+    <td>{{ libro.titulo }}</td>
+    <td>{{ libro.autor }}</td>
+    <td>{{ libro.editorial }}</td>
+    <td>{{ libro.genero }}</td>
+    <td>{{ libro.precio }}€</td>
+    <td>{{ libro.stock }}</td>
+    <td>
+      <button (click)="editar(libro)">Editar</button>
+    </td>
+  </tr>
+</table>
+
+<app-hijo [libro]="libroSeleccionado"></app-hijo>

@@ -5,13 +5,14 @@ import { Router } from '@angular/router';
 
 import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
+import { Padre } from "../padre/padre";
 
 declare var M: any;
 
 @Component({
   selector: 'app-nuevo-libro',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Padre],
   templateUrl: './add-libro.html',
   styleUrls: ['./add-libro.css']
 })
