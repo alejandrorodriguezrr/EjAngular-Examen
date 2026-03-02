@@ -9,4 +9,12 @@
       {{ categoria }}
     </li>
   </ul>
+
+  <div>
+  <h3>Clientes que han comprado en la primera categoría</h3>
+  <p *ngIf="clientesPrimeraCategoria.length === 0">No hay clientes</p>
+  <div *ngFor="let cliente of clientesPrimeraCategoria">
+    <p>{{ cliente }}</p>
+  </div>
+</div>
 </div>
