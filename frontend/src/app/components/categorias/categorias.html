@@ -1,12 +1,16 @@
 <div class="categorias-container">
   <h2>Categorías</h2>
-
   <ul>
-    <li (click)="seleccionarCategoria('')">Todas</li>
-
-    <li *ngFor="let categoria of categorias"
-        (click)="seleccionarCategoria(categoria)">
+    <li *ngFor="let categoria of categorias" (click)="mostrarSoloComprados(categoria)">
       {{ categoria }}
     </li>
   </ul>
+
+  <div *ngIf="productosFiltrados.length === 0">
+    <p>No hay productos en esta categoría</p>
+  </div>
+
+  <div *ngFor="let producto of productosFiltrados">
+    <p>{{ producto.titulo }} - {{ producto.precio }}€</p>
+  </div>
 </div>
