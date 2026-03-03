@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CarritoService, ItemCarrito } from '../../services/carrito-services';
 import { ComprasServices } from '../../services/compras-services';
+import { ClientesServices } from '../../services/clientes-services';
 
 @Component({
   selector: 'app-carrito',
@@ -17,7 +18,8 @@ export class Carrito implements OnInit {
 
   constructor(
     private carritoService: CarritoService,
-    private comprasService: ComprasServices
+    private comprasService: ComprasServices,
+    private clientesService: ClientesServices
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +78,21 @@ export class Carrito implements OnInit {
       next: () => {
         alert('Compra realizada con éxito');
         this.carritoService.vaciarCarrito(); 
+
+        this.comprasService.mostrarComprasCliente(clienteId).subscribe({
+          next: (compras:any) => {
+            if(compras.length===2){
+              alert("Usted no puede realizar mas compras")
+
+              this.clientesService.mostrarCliente(clienteId).subscribe({
+                next: (cliente: any) => {
+                  cliente.password = 'Nueva1234'
+                  this.clientesService.actualizarCliente(cliente).subscribe()
+                }
+              })
+            }
+          }
+        })
       },
       error: (err) => {
         console.error('Error al realizar la compra:', err);
