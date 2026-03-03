@@ -12,6 +12,7 @@ import { finalize } from 'rxjs/operators';
 
 import { ClientesServices } from '../../services/clientes-services';
 import { ClientesModel } from '../../models/clientes-model';
+import { ComprasServices } from '../../services/compras-services';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +25,8 @@ export class Registro {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private clientesService = inject(ClientesServices);
+
+  constructor(private comprasServices: ComprasServices){}
 
   loading = false;
   errorMsg = '';
@@ -57,9 +60,19 @@ export class Registro {
       return;
     }
 
-    this.loading = true;
+    this.comprasServices.mostrarCompras().subscribe({
+      next: (compras:any) => {
+        this.clientesService.mostrarClientes().subscribe({
+          next: (clientes:any) => {
+            if (clientes.length >= compras.length) {
+              this.errorMsg = 'No se pueden registrar más clientes';
+              return;
+            }
+
+            this.loading = true;
 
     const payload = this.form.getRawValue();
+    
 
     const nuevoCliente: Omit<ClientesModel, '_id'> = {
       nombre: payload.nombre.trim(),
@@ -107,5 +120,9 @@ export class Registro {
           this.successMsg = '';
         }
       });
+          }
+        })
+      }
+    })
   }
 }
