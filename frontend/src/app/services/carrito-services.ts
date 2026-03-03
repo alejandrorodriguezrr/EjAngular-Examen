@@ -26,6 +26,13 @@ export class CarritoService {
 
     const itemExistente = this.carritoItems.find(item => item.libro._id === libro._id);
 
+    const totalUnidades = this.carritoItems.reduce((acc, item) => acc + item.cantidad,1)
+
+    if(totalUnidades>6){
+      alert("No puedes añadir mas productos al carrito")
+      return false
+    }
+
     if (itemExistente) {
       if (itemExistente.cantidad >= libro.stock) {
         alert('No hay más stock disponible para este libro');
