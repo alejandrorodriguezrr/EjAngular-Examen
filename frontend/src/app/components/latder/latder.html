@@ -2,6 +2,9 @@
     <div class="carrito-container">
 
         <app-carrito></app-carrito>
-    
+        <p>Ultima compra:</p>
+        <div *ngFor="let p of ultimaCompras">
+            <p>{{p}}</p>
+        </div>
     </div>
 </div>
