@@ -1,0 +1,5 @@
+<p>COMPONENTE PADRE</p>
+<div *ngFor="let item of comprasPorCliente">
+    <p>{{item.nombre}} - {{item.numCompras}}</p>
+</div>
+<app-hijo [recojoHijo]="mandarClientes" (mandoAlPadre)="recicbirCompras($event)"></app-hijo>
