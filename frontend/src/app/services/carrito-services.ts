@@ -19,6 +19,14 @@ export class CarritoService {
   constructor() {}
 
   agregarAlCarrito(libro: LibroModel): boolean {
+
+    const totalProductos = this.carritoItems.reduce((acc, item) => acc + item.cantidad,1)
+
+    if(totalProductos>6){
+      alert("No puedes añadir mas productos")
+      return false
+    }
+
     if (libro.stock <= 0) {
       alert('No hay stock disponible para este libro');
       return false;
