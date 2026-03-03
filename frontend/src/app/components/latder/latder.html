@@ -2,6 +2,10 @@
     <div class="carrito-container">
 
         <app-carrito></app-carrito>
-    
+        <p>Producto mas caro: {{producto}}</p>
+        <p>Clientes que han comprado ese producto:</p>
+        <div *ngFor="let p of clientesQueCompraron">
+            {{p}}
+        </div>
     </div>
 </div>
