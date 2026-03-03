@@ -1,0 +1,3 @@
+<p>COMPONENTE PADRE</p>
+<p>Numero de productos: {{ reciboHijo}}</p>
+<app-hijo [reciboHijo]="todosProductos" (mandoHijo)="reciboHijo = $event"></app-hijo>
