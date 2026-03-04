@@ -32,6 +32,39 @@ export class Historial implements OnInit {
       this.error = 'No se ha identificado al cliente. Por favor, inicie sesión.';
       console.error('❌ No se pudo obtener el ID del cliente');
     }
+
+    this.obtenerProducto()
+  }
+
+  productoMasVendido:string=""
+
+  obtenerProducto(){
+    this.comprasService.mostrarCompras().subscribe({
+      next:(compras:any)=>{
+        let maxVeces=0
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any)=>{
+            let veces=0
+
+            compras.forEach((c:any) => {
+              c.libros.forEach((l:any) => {
+                if(l.titulo===libro.titulo){
+                  veces++
+                }
+              });
+            });
+
+            console.log(libro.titulo, '→ veces:', veces);
+
+            if(veces>maxVeces){
+              maxVeces=veces
+              this.productoMasVendido=libro.titulo
+            }
+          })
+        });
+      }
+    })
+
   }
 
   obtenerClienteId() {
