@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
+import { ComprasServices } from '../../services/compras-services';
 
 declare var M: any;
 
@@ -20,7 +21,8 @@ export class NuevoLibro implements OnInit {
 
   constructor(
     public libroService: LibrosServices,
-    private router: Router
+    private router: Router,
+    private comprasServices: ComprasServices
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +50,16 @@ export class NuevoLibro implements OnInit {
         fileInput.value = '';
       }
     }
+  }
+
+  borrarCompras(){
+    this.comprasServices.mostrarCompras().subscribe({
+      next: (compras:any) => {
+        compras.forEach((compra:any) => {
+          this.comprasServices.borrarCompra(compra._id).subscribe()
+        });
+      }
+    })
   }
 
   addLibro(form: NgForm): void {
