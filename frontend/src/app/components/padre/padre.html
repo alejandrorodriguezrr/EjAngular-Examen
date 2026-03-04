@@ -1,0 +1,5 @@
+<app-hijo [reciboPadre]="numerodeClientes" (envioPadre)="reciboHijo = $event"></app-hijo>
+<p>COMPONENTE PADRE</p>
+<div *ngFor="let p of reciboHijo">
+    <p>{{p.nombre}} - {{p.num_compras}}</p>
+</div>
