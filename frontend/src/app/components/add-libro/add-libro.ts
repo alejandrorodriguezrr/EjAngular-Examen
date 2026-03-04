@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 
 import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
+import { ProveedoresModel } from '../../models/proovedor-model';
+import { Proveedores } from '../../services/proveedores';
 
 declare var M: any;
 
@@ -20,7 +22,8 @@ export class NuevoLibro implements OnInit {
 
   constructor(
     public libroService: LibrosServices,
-    private router: Router
+    private router: Router,
+    private proovedorServices: Proveedores
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +88,26 @@ export class NuevoLibro implements OnInit {
         }
       });
     }
+  }
+
+  mostrarProveedor: boolean=false
+  proveedor: ProveedoresModel=new ProveedoresModel()
+
+  mostrarFormProveedor(libroId:string){
+    this.mostrarProveedor=true
+  }
+
+  guardarProveedor(){
+    this.proovedorServices.crearCliente(this.proveedor).subscribe({
+      next: (res)=>{
+        console.log("Respuesta", res)
+        alert("Proveedor Guardado")
+        this.mostrarProveedor=false
+      },
+      error: (err) => {
+        console.error("Error:",err)
+      }
+    })
   }
 
   editarLibro(libro: LibroModel): void {
