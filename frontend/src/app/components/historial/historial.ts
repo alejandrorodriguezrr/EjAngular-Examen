@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComprasServices } from '../../services/compras-services';
+import { ClientesServices } from '../../services/clientes-services';
 
 @Component({
   selector: 'app-historial',
@@ -15,7 +16,7 @@ export class Historial implements OnInit {
   clienteId: string = '';
   sinCompras: boolean = false;
 
-  constructor(public comprasService: ComprasServices) {}
+  constructor(public comprasService: ComprasServices, private clientesService: ClientesServices) {}
 
   ngOnInit() {
     console.log('=== INICIANDO HISTORIAL COMPONENT ===');
@@ -32,6 +33,7 @@ export class Historial implements OnInit {
       this.error = 'No se ha identificado al cliente. Por favor, inicie sesión.';
       console.error('❌ No se pudo obtener el ID del cliente');
     }
+    this.calcularCliente()
   }
 
   obtenerClienteId() {
@@ -104,6 +106,34 @@ export class Historial implements OnInit {
         }
       }
     });
+  }
+
+  nombreCliente:string=""
+  totalProductos:number=0
+
+  calcularCliente(){
+    this.clientesService.mostrarClientes().subscribe({
+      next: (clientes:any) => {
+        let MaxCompras=0
+        clientes.forEach((cliente:any) => {
+          this.comprasService.mostrarComprasCliente(cliente._id).subscribe({
+            next: (compras:any) => {
+              if(compras.length>MaxCompras){
+                MaxCompras=compras.length
+                this.nombreCliente=cliente.nombre
+                this.totalProductos=0
+
+                compras.forEach((compra:any) => {
+                  compra.libros.forEach((libro:any) => {
+                    this.totalProductos+=libro.cantidad
+                  });
+                });
+              }
+            }
+          })
+        });
+      }
+    })
   }
 
   calcularTotalLibros(compra: any): number {
