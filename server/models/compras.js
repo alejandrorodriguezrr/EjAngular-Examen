@@ -16,7 +16,8 @@ const compraSchema = new Schema({
       autor: String,
       precio: Number,
       cantidad: Number,
-      imagen: String
+      imagen: String,
+      genero: String
     }
   ],
 

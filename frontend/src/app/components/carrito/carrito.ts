@@ -65,7 +65,8 @@ export class Carrito implements OnInit {
         autor: item.libro.autor,
         precio: item.libro.precio,
         cantidad: item.cantidad,
-        imagen: item.libro.imagen
+        imagen: item.libro.imagen,
+        genero: item.libro.genero
       })),
       fecha: new Date(),
       total: this.total
