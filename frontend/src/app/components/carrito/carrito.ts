@@ -37,7 +37,8 @@ export class Carrito implements OnInit {
       return;
     }
 
-    const userRaw = localStorage.getItem('user');
+    if(this.carrito.length%2==0){
+      const userRaw = localStorage.getItem('user');
     if (!userRaw) {
       alert('Debes iniciar sesión para realizar una compra');
       return;
@@ -83,5 +84,11 @@ export class Carrito implements OnInit {
         alert(msg);
       }
     });
+    }else{
+      alert("El carrito tiene productos impares")
+      return
+    }
+
+    
   }
 }
