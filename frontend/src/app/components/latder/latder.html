@@ -1,5 +1,8 @@
 <div class="latder-container">
     <div class="carrito-container">
         <app-carrito></app-carrito>
+        <input type="text" [(ngModel)]="productoaBuscar">
+        <button (click)="buscar()">BUSCAR PRODUCTO</button>
+        <p>Compras de ese producto : {{contador}}</p>
     </div>
 </div>
