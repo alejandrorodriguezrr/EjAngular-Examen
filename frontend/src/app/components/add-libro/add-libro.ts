@@ -91,25 +91,6 @@ export class NuevoLibro implements OnInit {
     }
   }
 
-  contador:number=0
-
-  numClientes(titulo:string){
-    this.comprasServices.mostrarCompras().subscribe({
-      next: (compras:any) => {
-        let cont=0
-         compras.forEach((compra:any) => {
-            compra.libros.forEach((libro:any)=> {
-              if(libro.titulo===titulo){
-                cont++
-                this.contador=cont
-              }
-            });
-          });
-        alert(`Clientes que han comprado ese producto: ${this.contador}`)
-      }
-    })
-  }
-
   editarLibro(libro: LibroModel): void {
     this.libroService.libroSeleccionado = { ...libro };
     this.selectedFile = null; 
