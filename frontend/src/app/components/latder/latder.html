@@ -1,5 +1,9 @@
 <div class="latder-container">
     <div class="carrito-container">
         <app-carrito></app-carrito>
+        <p>Nombre clientes:</p>
+        <div *ngFor="let p of clientes">
+            <p>{{p.nombre}} - {{p.numero}}</p>
+        </div>
     </div>
 </div>
