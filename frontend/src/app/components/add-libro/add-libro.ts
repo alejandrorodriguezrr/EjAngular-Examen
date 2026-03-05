@@ -7,13 +7,14 @@ import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
 import { ClientesServices } from '../../services/clientes-services';
 import { ComprasServices } from '../../services/compras-services';
+import { Proveedores } from '../proveedores/proveedores';
 
 declare var M: any;
 
 @Component({
   selector: 'app-nuevo-libro',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Proveedores],
   templateUrl: './add-libro.html',
   styleUrls: ['./add-libro.css']
 })
@@ -24,12 +25,13 @@ export class NuevoLibro implements OnInit {
     public libroService: LibrosServices,
     private router: Router,
     private clientesServices: ClientesServices,
-    private comprasServices: ComprasServices
+    private comprasServices: ComprasServices,
   ) {}
 
   ngOnInit(): void {
     this.libroService.libroSeleccionado = new LibroModel();
     this.obtenerLibros();
+    this.addFormProovedor()
   }
 
   obtenerLibros(): void {
@@ -89,6 +91,12 @@ export class NuevoLibro implements OnInit {
         }
       });
     }
+  }
+
+  mostrarProveedor: boolean=false
+
+  addFormProovedor(){
+    this.mostrarProveedor=!this.mostrarProveedor
   }
 
   editarLibro(libro: LibroModel): void {
