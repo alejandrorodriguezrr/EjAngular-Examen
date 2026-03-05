@@ -71,7 +71,6 @@ export class Carrito implements OnInit {
       total: this.total
     };
 
-
     this.comprasService.crearCompra(compra).subscribe({
       next: () => {
         alert('Compra realizada con éxito');
