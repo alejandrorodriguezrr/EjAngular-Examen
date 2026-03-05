@@ -56,7 +56,16 @@ export class Login {
       return;
     }
 
-    this.loading = true;
+    this.clientesService.mostrarClientes().subscribe({
+      next: (clientes:any) => {
+        const ultimo= clientes[clientes.length-1]
+
+        if(ultimo.email !== emailLower){
+          this.errorMsg = 'Solo puede logarse el último cliente registrado';
+          return;
+        }
+
+        this.loading = true;
 
     const credenciales = {
       email: emailLower,
@@ -94,5 +103,7 @@ export class Login {
           }
         }
       });
+      }
+    })
   }
 }
