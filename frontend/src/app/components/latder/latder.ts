@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { Carrito } from "../carrito/carrito";
-import { Nuevo } from "../nuevo/nuevo";
 
 @Component({
   selector: 'app-latder',
-  imports: [Carrito, Nuevo],
+  imports: [Carrito],
   templateUrl: './latder.html',
   styleUrl: './latder.css',
 })
