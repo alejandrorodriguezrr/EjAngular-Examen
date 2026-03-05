@@ -37,7 +37,15 @@ export class Carrito implements OnInit {
       return;
     }
 
-    const userRaw = localStorage.getItem('user');
+    this.carritoService.carrito$.subscribe({
+      next: (carrito:any) => {
+        carrito.forEach((producto:any) => {
+          this.comprasService.mostrarCompras().subscribe({
+            next:(compras:any) => {
+              compras.forEach((compra:any) => {
+                compra.libros.forEach((libro:any) => {
+                  if(producto===libro.titulo){
+                    const userRaw = localStorage.getItem('user');
     if (!userRaw) {
       alert('Debes iniciar sesión para realizar una compra');
       return;
@@ -83,5 +91,18 @@ export class Carrito implements OnInit {
         alert(msg);
       }
     });
+                  }else{
+                    alert("No puedes comprar")
+                  
+                  }
+                });
+              });
+            }
+          })
+        });
+      }
+    })
+
+    
   }
 }
