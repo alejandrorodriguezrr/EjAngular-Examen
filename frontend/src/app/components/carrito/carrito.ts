@@ -25,6 +25,7 @@ export class Carrito implements OnInit {
       this.carrito = items;
       this.total = this.carritoService.calcularTotal();
     });
+    this.cargarVecesCompradas()
   }
 
   eliminarItem(libroId: string): void {
@@ -83,5 +84,25 @@ export class Carrito implements OnInit {
         alert(msg);
       }
     });
+  }
+
+  vecesComprado: any[]=[]
+
+  cargarVecesCompradas(){
+    this.comprasService.mostrarCompras().subscribe({
+      next: (compras:any) => {
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any)=> {
+            
+            this.vecesComprado.forEach((item:any) => {
+              if(item.libro.titulo === libro.titulo){
+                item.veces++
+              }
+            })
+
+          });
+        });
+      }
+    })
   }
 }
