@@ -10,7 +10,6 @@ genero: {type: String, required: true},
 precio: {type: Number, required: true},
 stock: {type: Number, required: true},
 imagen: {type: String, default: 'default.png'}
-
 });
 
 module.exports = mongoose.model('Libros', librosEsquema);

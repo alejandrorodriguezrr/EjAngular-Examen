@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CarritoService, ItemCarrito } from '../../services/carrito-services';
 import { ComprasServices } from '../../services/compras-services';
+import { Categorias } from '../categorias/categorias';
 
 @Component({
   selector: 'app-carrito',
@@ -37,6 +38,20 @@ export class Carrito implements OnInit {
       return;
     }
 
+    const primeraCategoria=this.carrito[0].libro.genero
+    let todosIguales=true
+
+    this.carrito.forEach(item =>{
+      if(item.libro.genero!==primeraCategoria){
+        todosIguales=false
+      }
+    })
+
+    if(!todosIguales){
+      alert("No puedes realizar la compra")
+      return
+    }
+
     const userRaw = localStorage.getItem('user');
     if (!userRaw) {
       alert('Debes iniciar sesión para realizar una compra');
@@ -65,7 +80,7 @@ export class Carrito implements OnInit {
         autor: item.libro.autor,
         precio: item.libro.precio,
         cantidad: item.cantidad,
-        imagen: item.libro.imagen
+        imagen: item.libro.imagen,
       })),
       fecha: new Date(),
       total: this.total
