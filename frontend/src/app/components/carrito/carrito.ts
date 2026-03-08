@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { CommonModule, NgFor } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CarritoService, ItemCarrito } from '../../services/carrito-services';
 import { ComprasServices } from '../../services/compras-services';
 
 @Component({
   selector: 'app-carrito',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgFor],
   templateUrl: './carrito.html',
   styleUrl: './carrito.css',
 })
@@ -25,6 +25,24 @@ export class Carrito implements OnInit {
       this.carrito = items;
       this.total = this.carritoService.calcularTotal();
     });
+    this.mostrarVeces()
+  }
+
+  ultimaCompra:any[]=[]
+
+  mostrarVeces(){
+
+    this.comprasService.mostrarCompras().subscribe({
+      next: (compras:any) => {
+        let ultima=compras[compras.length-1]
+        ultima.libros.forEach((libro:any) => {
+          for(let i=0;i<libro.cantidad;i++){
+            this.ultimaCompra.push(libro.titulo)
+          }
+        });
+      }
+    })
+
   }
 
   eliminarItem(libroId: string): void {
@@ -76,6 +94,7 @@ export class Carrito implements OnInit {
       next: () => {
         alert('Compra realizada con éxito');
         this.carritoService.vaciarCarrito(); 
+        window.location.reload()
       },
       error: (err) => {
         console.error('Error al realizar la compra:', err);
