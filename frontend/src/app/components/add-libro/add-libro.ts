@@ -7,13 +7,14 @@ import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
 import { ClientesServices } from '../../services/clientes-services';
 import { ComprasServices } from '../../services/compras-services';
+import { Hijo } from "../hijo/hijo";
 
 declare var M: any;
 
 @Component({
   selector: 'app-nuevo-libro',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Hijo],
   templateUrl: './add-libro.html',
   styleUrls: ['./add-libro.css']
 })
@@ -31,6 +32,8 @@ export class NuevoLibro implements OnInit {
     this.libroService.libroSeleccionado = new LibroModel();
     this.obtenerLibros();
   }
+
+  pasarHijo:number=0
 
   obtenerLibros(): void {
     this.libroService.mostrarLibros().subscribe({
@@ -99,6 +102,25 @@ export class NuevoLibro implements OnInit {
     if (fileInput) {
       fileInput.value = '';
     }
+  }
+
+  contarClientes(titulo: string){
+    this.comprasServices.mostrarCompras().subscribe({
+      next: (compras:any) => {
+        const clientes: string[]=[]
+
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any)=> {
+            if(libro.titulo===titulo){
+              if(!clientes.includes(compra.clienteId._id)){
+                clientes.push(compra.clienteId)
+              }
+            }
+          });
+        });
+        this.pasarHijo=clientes.length
+      }
+    })
   }
 
   BorrarLibro(_id: string): void {

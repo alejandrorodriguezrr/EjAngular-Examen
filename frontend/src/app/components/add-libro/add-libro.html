@@ -106,6 +106,9 @@
             <a href="#" (click)="BorrarLibro(libro._id); $event.preventDefault()">
               <i class="material-icons">delete</i>
             </a>
+            <a href="#" (click)="contarClientes(libro.titulo); $event.preventDefault()">
+              <i class="material-icons">person</i>
+            </a>
           </td>
         </tr>
       </tbody>
@@ -113,3 +116,4 @@
   </div>
 
 </div>
+<app-hijo [reciboPadre]="pasarHijo"></app-hijo>
