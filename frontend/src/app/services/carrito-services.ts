@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LibroModel } from '../models/libro-model';
 import { BehaviorSubject } from 'rxjs';
+import { ComprasServices } from './compras-services';
 
 export interface ItemCarrito {
   libro: LibroModel;
@@ -16,12 +17,19 @@ export class CarritoService {
   
   carrito$ = this.carritoSubject.asObservable();
 
-  constructor() {}
+  constructor(private comprasService:ComprasServices) {}
 
   agregarAlCarrito(libro: LibroModel): boolean {
     if (libro.stock <= 0) {
       alert('No hay stock disponible para este libro');
       return false;
+    }
+
+    for(let i=0;i<this.carritoItems.length;i++){
+      if(this.carritoItems[i].cantidad>=2){
+        alert("No puedes añadir mas productos al carrito")
+        return false
+      }
     }
 
     const itemExistente = this.carritoItems.find(item => item.libro._id === libro._id);
