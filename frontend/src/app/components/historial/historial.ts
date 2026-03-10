@@ -32,6 +32,7 @@ export class Historial implements OnInit {
       this.error = 'No se ha identificado al cliente. Por favor, inicie sesión.';
       console.error('❌ No se pudo obtener el ID del cliente');
     }
+    this.numeroProductos()
   }
 
   obtenerClienteId() {
@@ -76,6 +77,30 @@ export class Historial implements OnInit {
     console.error('❌ No se encontró ID de cliente en localStorage');
     console.log('💡 Verifica que hayas iniciado sesión correctamente');
   }
+
+  numeroTotal:number=0
+  numeroRepetidos:number=0
+
+
+  numeroProductos(){
+    
+    this.comprasService.mostrarCompras().subscribe({
+      next: (compras:any)=>{
+        const r: string[]=[]
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any) => {
+            this.numeroTotal++
+            if(r.includes(libro.titulo)){
+              this.numeroRepetidos++
+            }else{
+              r.push(libro.titulo)
+            }
+          })
+        });
+      }
+    })
+  }
+
 
   cargarHistorialCompras() {
     this.cargando = true;

@@ -28,7 +28,7 @@
 
   <div *ngIf="!cargando && !error && !sinCompras" class="compras-lista">
     <div class="compras-resumen">
-      <p>Total de compras: <strong>{{ comprasCliente.length }}</strong></p>
+      <p>Total de compras: <strong>{{ comprasCliente.length }}</strong>, numero de productos totales {{numeroTotal}}, repetidos {{numeroRepetidos}}</p>
     </div>
 
     <div *ngFor="let compra of comprasCliente" class="compra-card">

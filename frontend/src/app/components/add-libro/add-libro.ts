@@ -7,6 +7,8 @@ import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
 import { ClientesServices } from '../../services/clientes-services';
 import { ComprasServices } from '../../services/compras-services';
+import { ProveedorServices } from '../../services/proveedor-services';
+import { ProveedorModel } from '../../models/proveedor-model';
 
 declare var M: any;
 
@@ -20,11 +22,14 @@ declare var M: any;
 export class NuevoLibro implements OnInit {
   selectedFile: File | null = null;
 
+  proveedor: ProveedorModel = new ProveedorModel()
+
   constructor(
     public libroService: LibrosServices,
     private router: Router,
     private clientesServices: ClientesServices,
-    private comprasServices: ComprasServices
+    private comprasServices: ComprasServices,
+    private proveedorServices: ProveedorServices
   ) {}
 
   ngOnInit(): void {
@@ -89,6 +94,23 @@ export class NuevoLibro implements OnInit {
         }
       });
     }
+  }
+
+  addProveedor(){
+    console.log('Proveedor', this.proveedor)
+    const datos = {
+      nombre: this.proveedor.nombre,
+      ciudad: this.proveedor.ciudad,
+      pais: this.proveedor.pais
+    }
+    
+    this.proveedorServices.crearCliente(datos).subscribe({
+      next: (proveedores: any) => {
+        console.log("Respuesta", proveedores)
+        alert("Proveedor guardado")
+        this.proveedor=new ProveedorModel()
+      }
+    })
   }
 
   editarLibro(libro: LibroModel): void {
