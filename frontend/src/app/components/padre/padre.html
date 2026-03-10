@@ -1,0 +1,6 @@
+<p>COMPONENTE PADRE</p>
+<div *ngFor="let p of reciboHijo">
+    <p>{{p}}</p>
+</div>
+
+<app-hijo [reciboPadre]="nomclientes" (envioPadre)="reciboHijo=($event)"></app-hijo>
