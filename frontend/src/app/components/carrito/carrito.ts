@@ -14,6 +14,9 @@ export class Carrito implements OnInit {
 
   carrito: ItemCarrito[] = [];
   total: number = 0;
+  librosComprados:string[]=[]
+  librosFiltrados:string[]=[]
+
 
   constructor(
     private carritoService: CarritoService,
@@ -52,13 +55,21 @@ export class Carrito implements OnInit {
       return;
     }
 
-    const cantidades: { [key: string]: number } = {};
-    this.carrito.forEach(item => {
-      cantidades[item.libro._id] = item.cantidad;
-    });
 
-    const compra = {
-      clienteId: clienteId,
+    this.comprasService.mostrarComprasCliente(clienteId).subscribe({
+      next: (compras:any) => {
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any) => {
+            if(!this.librosComprados.includes(libro.titulo)){
+              this.librosComprados.push(libro.titulo)
+            }
+          });
+        });
+
+        this.carrito.forEach(item => {
+        if(!this.librosComprados.includes(item.libro.titulo)){
+          this.librosFiltrados.push({
+            clienteId: clienteId,
       libros: this.carrito.map(item => ({
         libroId: item.libro._id,
         titulo: item.libro.titulo,
@@ -69,7 +80,22 @@ export class Carrito implements OnInit {
       })),
       fecha: new Date(),
       total: this.total
-    };
+        })
+        }
+      });
+
+
+      }
+    })
+
+    const cantidades: { [key: string]: number } = {};
+    this.carrito.forEach(item => {
+      cantidades[item.libro._id] = item.cantidad;
+    });
+
+      
+      
+  
 
 
     this.comprasService.crearCompra(compra).subscribe({

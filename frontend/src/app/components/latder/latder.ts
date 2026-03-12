@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Carrito } from "../carrito/carrito";
+import { ComprasModel } from '../../models/compras-model';
+import { ComprasServices } from '../../services/compras-services';
 
 @Component({
   selector: 'app-latder',
@@ -8,4 +10,5 @@ import { Carrito } from "../carrito/carrito";
   styleUrl: './latder.css',
 })
 export class Latder {
+
 }
