@@ -36,6 +36,7 @@ export class Carrito implements OnInit {
       alert('El carrito está vacío');
       return;
     }
+    
 
     const userRaw = localStorage.getItem('user');
     if (!userRaw) {

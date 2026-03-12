@@ -24,6 +24,11 @@ export class CarritoService {
       return false;
     }
 
+    if(this.carritoItems.length>=3){
+      alert("No puedes añadir mas productos")
+      return false
+    }    
+
     const itemExistente = this.carritoItems.find(item => item.libro._id === libro._id);
 
     if (itemExistente) {
