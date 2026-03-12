@@ -12,6 +12,7 @@ import { finalize } from 'rxjs/operators';
 
 import { ClientesServices } from '../../services/clientes-services';
 import { ClientesModel } from '../../models/clientes-model';
+import { ComprasServices } from '../../services/compras-services';
 
 @Component({
   selector: 'app-register',
@@ -25,9 +26,13 @@ export class Registro {
   private router = inject(Router);
   private clientesService = inject(ClientesServices);
 
+  constructor(private comprasService:ComprasServices){}
+
   loading = false;
   errorMsg = '';
   successMsg = '';
+  numerodeCompras:number=0
+  numerodeClientes:number=0
 
   form = this.fb.nonNullable.group({
     nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40)]],
@@ -57,7 +62,15 @@ export class Registro {
       return;
     }
 
-    this.loading = true;
+    this.comprasService.mostrarCompras().subscribe({
+      next: (compras:any) => {
+        this.numerodeCompras=compras.length
+        this.clientesService.mostrarClientes().subscribe({
+          next: (clientes:any) => {
+            this.numerodeClientes=clientes.length
+
+            if(this.numerodeCompras>this.numerodeClientes){
+              this.loading = true;
 
     const payload = this.form.getRawValue();
 
@@ -107,5 +120,17 @@ export class Registro {
           this.successMsg = '';
         }
       });
+            }else{
+              this.errorMsg="No puedes añadir mas usuarios"
+              return
+            }
+
+          }
+        })
+
+      }
+    })
+
+    
   }
 }
