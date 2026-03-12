@@ -1,5 +1,9 @@
 <div class="latder-container">
     <div class="carrito-container">
         <app-carrito></app-carrito>
+        Nombre de los clientes que han comprado el producto mas caro : {{nombreProducto}}
+        <div *ngFor="let p of nombreClientes">
+            <p>{{p}}</p>
+        </div>
     </div>
 </div>
