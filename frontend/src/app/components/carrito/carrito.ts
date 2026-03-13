@@ -52,7 +52,31 @@ export class Carrito implements OnInit {
       return;
     }
 
-    const cantidades: { [key: string]: number } = {};
+    this.comprasService.mostrarComprasCliente(clienteId).subscribe({
+      next:(compras:any) => {
+
+        const titulosYaComprados: string[]=[]
+
+        compras.forEach((compra:any) => {
+          compra.libros.forEach((libro:any) => {
+            titulosYaComprados.push(libro.titulo)
+          });
+        });
+
+        let hayProductoNuevo=false
+
+        this.carrito.forEach(item => {
+          if(!titulosYaComprados.includes(item.libro.titulo)){
+            hayProductoNuevo=true
+          }
+        })
+
+        if(hayProductoNuevo){
+          alert("Solo puedes comprar productos que hayas comprado antes")
+          return
+        }
+
+        const cantidades: { [key: string]: number } = {};
     this.carrito.forEach(item => {
       cantidades[item.libro._id] = item.cantidad;
     });
@@ -83,5 +107,8 @@ export class Carrito implements OnInit {
         alert(msg);
       }
     });
+
+      }
+    })
   }
 }
