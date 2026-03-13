@@ -7,6 +7,8 @@ import { LibrosServices } from '../../services/libros-services';
 import { LibroModel } from '../../models/libro-model';
 import { ClientesServices } from '../../services/clientes-services';
 import { ComprasServices } from '../../services/compras-services';
+import { ProveedorServices } from '../../services/proveedor-services';
+import { ProveedorModel } from '../../models/proveedor-model';
 
 declare var M: any;
 
@@ -24,8 +26,11 @@ export class NuevoLibro implements OnInit {
     public libroService: LibrosServices,
     private router: Router,
     private clientesServices: ClientesServices,
-    private comprasServices: ComprasServices
+    private comprasServices: ComprasServices,
+    private proveedorServices: ProveedorServices
   ) {}
+
+  proveedor: ProveedorModel = new ProveedorModel()
 
   ngOnInit(): void {
     this.libroService.libroSeleccionado = new LibroModel();
@@ -89,6 +94,22 @@ export class NuevoLibro implements OnInit {
         }
       });
     }
+  }
+
+  crearProveedor(){
+
+    const datos = {
+      nombre:  this.proveedor.nombre,
+      ciudad: this.proveedor.ciudad,
+      pais: this.proveedor.pais
+    }
+
+    this.proveedorServices.crearProveedor(datos).subscribe({
+      next: (proveedores:any) => {
+        alert("PROVEEDOR GUARDADO")
+        this.proveedor = new ProveedorModel()
+      }
+    })
   }
 
   editarLibro(libro: LibroModel): void {

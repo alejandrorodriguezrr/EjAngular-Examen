@@ -110,6 +110,14 @@
         </tr>
       </tbody>
     </table>
+    <div>
+      <input type="text" [(ngModel)]="proveedor.nombre" placeholder="Introduzca el nombre">
+      <input type="text" [(ngModel)]="proveedor.ciudad" placeholder="Introduzca la ciudad">
+      <input type="text" [(ngModel)]="proveedor.pais" placeholder="Introduzca el pais">
+      <button (click)="crearProveedor()">ENVIAR PROVEEDOR</button>
+
+    </div>
+
   </div>
 
 </div>
